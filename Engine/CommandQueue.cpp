@@ -46,3 +46,58 @@ void CommandQueue::WaitSync()
 		::WaitForSingleObject(_fenceEvent, INFINITE);
 	}
 }
+
+void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
+{
+	//queue clear와 같은 개념 
+	_cmdAlloc->Reset();
+	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
+
+	//
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->getCurrentBackBufferResource().Get(),
+		D3D12_RESOURCE_STATE_PRESENT,		//현재 출력(before)
+		D3D12_RESOURCE_STATE_RENDER_TARGET	//Backbuffer 작업(after) 
+		//즉 swapchain을 해주겠다. 
+	);
+
+	//barrier을 list에 집어넣는다. 
+	_cmdList->ResourceBarrier(1, &barrier);
+
+	//commmand list를 위에서 reset했기 때문에 다시 작업해야한다고 하네요.
+	_cmdList->RSSetViewports(1, vp);
+	_cmdList->RSSetScissorRects(1, rect);
+
+	//어떤 버퍼에 그릴 것인가?
+	//backbuffer를 알려줌
+	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->getBackBufferView();
+	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr); //테스트겸 lightblue
+	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
+
+
+}
+
+void CommandQueue::RenderEnd()
+{
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->getCurrentBackBufferResource().Get(),
+		//RenderBegin()의 barrier과는 반대
+		D3D12_RESOURCE_STATE_RENDER_TARGET,
+		D3D12_RESOURCE_STATE_PRESENT
+	);
+
+	_cmdList->ResourceBarrier(1, &barrier); 
+	_cmdList->Close();
+
+	//커맨드 리스트 수행
+	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
+	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+
+	_swapChain->Present();
+
+	//위 요청이 해결될 때까지 CPU는 대기
+	WaitSync();
+
+	_swapChain->Swapindex();
+
+}

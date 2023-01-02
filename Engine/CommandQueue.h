@@ -1,4 +1,6 @@
 #pragma once
+#include "SwapChain.h"
+#include "DescriptorHeap.h"
 
 class SwapChain;
 class DescriptorHeap;

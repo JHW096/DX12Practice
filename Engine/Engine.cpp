@@ -26,10 +26,24 @@ void Engine::Init(const WindowInfo& info)
 	_device->Init();
 	_cmdQueue->Init(_device->GetDeivce(), _swapChain, _descHeap);
 	_swapChain->Init(info, _device->GetDXGI(), _cmdQueue->getCmdQueue());
+	_descHeap->Init(_device->GetDeivce(), _swapChain);
 }
 
 void Engine::Render()
 {
+	RenderBegin();
+
+	RenderEnd();
+}
+
+void Engine::RenderBegin()
+{
+	_cmdQueue->RenderBegin(&_viewport, &_scissorRect);
+}
+
+void Engine::RenderEnd()
+{
+	_cmdQueue->RenderEnd();
 }
 
 void Engine::ResizeWindow(int32 width, int32 height)
