@@ -48,6 +48,8 @@ public:
 
 	~CommandQueue();
 
+	ComPtr<ID3D12CommandQueue> getCmdQueue() { return _cmdQueue; }
+
 public:
 
 	void Init(
@@ -55,6 +57,8 @@ public:
 		shared_ptr<SwapChain> swapChain,
 		shared_ptr<DescriptorHeap> descHeap
 	);
+
+
 
 	void WaitSync();
 

@@ -30,3 +30,16 @@ void SwapChain::Init(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<I
 		_swapChain->GetBuffer(i, IID_PPV_ARGS(&_renderTargets[i]));
 	}
 }
+
+void SwapChain::Present()
+{
+	//Present() 렌더링 이미지를 사용자에게 제공하는 함수
+	_swapChain->Present(0, 0);
+}
+
+void SwapChain::Swapindex()
+{
+	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CAHIN_BUFFER_COUNT;
+	//0 -> 1 -> 0 -> 1
+	//Swapchain을 한다
+}
