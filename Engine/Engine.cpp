@@ -21,7 +21,7 @@ void Engine::Init(const WindowInfo& info)
 	_device = make_shared<Device>();
 	_cmdQueue = make_shared<CommandQueue>();
 	_swapChain = make_shared<SwapChain>();
-	_descHeap = make_shared<ID3D12DescriptorHeap>();
+	_descHeap = make_shared<DescriptorHeap>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDeivce(), _swapChain, _descHeap);

@@ -2,5 +2,4 @@
 #include "EnginePch.h"
 #include"Engine.h"
 
-unique_ptr<Engine> gp_Engine;
-
+unique_ptr<Engine> gp_Engine = make_unique<Engine>();
