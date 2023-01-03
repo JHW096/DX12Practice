@@ -18,10 +18,12 @@ void Engine::Init(const WindowInfo& info)
 	_device = make_shared<Device>();
 	_cmdQueue = make_shared<CommandQueue>();
 	_swapChain = make_shared<SwapChain>();
+	_rootSignature = make_shared<RootSignature>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->getDeivce(), _swapChain);
 	_swapChain->Init(info, _device->getDeivce(), _device->getDXGI(), _cmdQueue->getCmdQueue());
+	_rootSignature->Init(_device->getDeivce());
 }
 
 void Engine::Render()

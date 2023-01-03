@@ -3,6 +3,7 @@
 #include "Device.h"
 #include "CommandQueue.h" 
 #include "SwapChain.h"
+#include "RootSignature.h"
 
 class Engine
 {
@@ -15,12 +16,14 @@ private:
 	shared_ptr<Device> _device;
 	shared_ptr<CommandQueue> _cmdQueue;
 	shared_ptr<SwapChain> _swapChain;
+	shared_ptr<RootSignature> _rootSignature;
 
 public:
 
-	shared_ptr<Device> getDevice()				{ return _device; }
-	shared_ptr<CommandQueue> getCommandQueue()	{ return _cmdQueue; }
+	shared_ptr<Device> getDevice()					{ return _device; }
+	shared_ptr<CommandQueue> getCommandQueue()		{ return _cmdQueue; }
 	shared_ptr<SwapChain> getSwapChain()			{ return _swapChain; }
+	shared_ptr<RootSignature> getRootSignature()	{ return _rootSignature; }
 
 public:
 
