@@ -1,4 +1,9 @@
 #pragma once
+
+#include "Device.h"
+#include "CommandQueue.h" 
+#include "SwapChain.h"
+
 class Engine
 {
 private:
@@ -7,9 +12,15 @@ private:
 	D3D12_VIEWPORT	_viewport{ };
 	D3D12_RECT		_scissorRect{ };
 
-	shared_ptr<class Device> _device;
-	shared_ptr<class CommandQueue> _cmdQueue;
-	shared_ptr<class SwapChain> _swapChain;
+	shared_ptr<Device> _device;
+	shared_ptr<CommandQueue> _cmdQueue;
+	shared_ptr<SwapChain> _swapChain;
+
+public:
+
+	shared_ptr<Device> getDevice()				{ return _device; }
+	shared_ptr<CommandQueue> getCommandQueue()	{ return _cmdQueue; }
+	shared_ptr<SwapChain> getSwapChain()			{ return _swapChain; }
 
 public:
 

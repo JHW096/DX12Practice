@@ -11,7 +11,7 @@ private:
 public:
 
 	void Init();
-	ComPtr<IDXGIFactory> GetDXGI() { return _dxgi; }
-	ComPtr<ID3D12Device> GetDeivce() { return _device; }
+	ComPtr<IDXGIFactory> getDXGI() { return _dxgi; }
+	ComPtr<ID3D12Device> getDeivce() { return _device; }
 };
 

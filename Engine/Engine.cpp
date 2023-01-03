@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Engine.h"
-#include "Device.h"
-#include "CommandQueue.h" 
-#include "SwapChain.h"
+
 
 
 void Engine::Init(const WindowInfo& info)
@@ -22,8 +20,8 @@ void Engine::Init(const WindowInfo& info)
 	_swapChain = make_shared<SwapChain>();
 
 	_device->Init();
-	_cmdQueue->Init(_device->GetDeivce(), _swapChain);
-	_swapChain->Init(info, _device->GetDeivce(), _device->GetDXGI(), _cmdQueue->getCmdQueue());
+	_cmdQueue->Init(_device->getDeivce(), _swapChain);
+	_swapChain->Init(info, _device->getDeivce(), _device->getDXGI(), _cmdQueue->getCmdQueue());
 }
 
 void Engine::Render()

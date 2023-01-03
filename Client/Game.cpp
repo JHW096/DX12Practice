@@ -4,11 +4,11 @@
 
 void Game::Init(const WindowInfo& info)
 {
-	gp_Engine->Init(info);
+	GEngine->Init(info);
 	
 }
 
 void Game::Update()
 {
-	gp_Engine->Render();
+	GEngine->Render();
 }

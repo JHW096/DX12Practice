@@ -55,5 +55,8 @@ struct WindowInfo
 
 };
 
-extern unique_ptr<class Engine> gp_Engine;
+#define DEVICE		GEngine->getDevice()->getDeivce()
+#define CMD_LIST	GEngine->_cmdQueue()->getCmdList()
+
+extern unique_ptr<class Engine> GEngine;
 

@@ -48,6 +48,7 @@ public:
 	~CommandQueue();
 
 	ComPtr<ID3D12CommandQueue> getCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> getCmdList() { return _cmdList; }
 
 public:
 
