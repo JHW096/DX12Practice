@@ -1,7 +1,5 @@
 #pragma once
 #include "SwapChain.h"
-#include "DescriptorHeap.h"
-
 class SwapChain;
 class DescriptorHeap;
 
@@ -44,7 +42,6 @@ private:
 	HANDLE _fenceEvent{ INVALID_HANDLE_VALUE };
 
 	shared_ptr<SwapChain> _swapChain;
-	shared_ptr<DescriptorHeap> _descHeap;
  
 public:
 
@@ -56,8 +53,7 @@ public:
 
 	void Init(
 		ComPtr<ID3D12Device> device,
-		shared_ptr<SwapChain> swapChain,
-		shared_ptr<DescriptorHeap> descHeap
+		shared_ptr<SwapChain> swapChain
 	);
 
 

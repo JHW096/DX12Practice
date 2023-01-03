@@ -6,10 +6,9 @@ CommandQueue::~CommandQueue()
 	::CloseHandle(_fenceEvent);
 }
 
-void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap)
+void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain)
 {
 	_swapChain = swapChain;
-	_descHeap = descHeap;
 
 	D3D12_COMMAND_QUEUE_DESC queueDesc{ };
 	//Type_direct = GPU가 직접 실행
@@ -70,7 +69,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 
 	//어떤 버퍼에 그릴 것인가?
 	//backbuffer를 알려줌
-	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->getBackBufferView();
+	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _swapChain->getBackRTV();
 	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr); //테스트겸 lightblue
 	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
 
