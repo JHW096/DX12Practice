@@ -55,8 +55,15 @@ struct WindowInfo
 
 };
 
+struct Vertex
+{
+	Vec3 pos;	//x, y, zÃà
+	Vec4 color; //RGBA
+};
+
 #define DEVICE		GEngine->getDevice()->getDeivce()
-#define CMD_LIST	GEngine->_cmdQueue()->getCmdList()
+#define CMD_LIST	GEngine->getCommandQueue()->getCmdList()
+#define ROOT_SIGNATURE GEngine->getRootSignature()->getSignature()
 
 extern unique_ptr<class Engine> GEngine;
 
