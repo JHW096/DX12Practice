@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CommandQueue.h"
+#include "Engine.h"
 
 CommandQueue::~CommandQueue()
 {
@@ -59,6 +60,9 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 		D3D12_RESOURCE_STATE_RENDER_TARGET	//Backbuffer 작업(after) 
 		//즉 swapchain을 해주겠다. 
 	);
+
+	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	GEngine->getCB()->Clear();
 
 	//barrier을 list에 집어넣는다. 
 	_cmdList->ResourceBarrier(1, &barrier);

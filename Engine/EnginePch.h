@@ -61,6 +61,11 @@ struct Vertex
 	Vec4 color; //RGBA
 };
 
+struct Transform
+{
+	Vec4 offset;
+};
+
 #define DEVICE		GEngine->getDevice()->getDeivce()
 #define CMD_LIST	GEngine->getCommandQueue()->getCmdList()
 #define ROOT_SIGNATURE GEngine->getRootSignature()->getSignature()
