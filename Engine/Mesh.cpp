@@ -41,8 +41,21 @@ void Mesh::Render()
 	// 1) buffer에 데이터 세팅
 	// 2) buffer의 주소를 register에 전송
 	// CMD_LIST->SetGraphicsRootConstantBufferView();
-	GEngine->getCB()->PushData(0, &_transform, sizeof(_transform));
-	GEngine->getCB()->PushData(1, &_transform, sizeof(_transform));
+
+	//2) TableDescHeap에다 CBV전달
+	//3) 모두 세팅이 끝났으면 TableDescHeap 커밋
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->getCB()->PushData(0, &_transform, sizeof(_transform));
+		GEngine->getTableDescHeap()->setCBV(handle, CBV_REGISTER::b0);
+	}
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->getCB()->PushData(0, &_transform, sizeof(_transform));
+		GEngine->getTableDescHeap()->setCBV(handle, CBV_REGISTER::b1);
+	}
+
+	GEngine->getTableDescHeap()->CommitTable();
+
+	
 
 	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 }

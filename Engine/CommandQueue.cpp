@@ -63,6 +63,9 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 
 	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
 	GEngine->getCB()->Clear();
+	GEngine->getTableDescHeap()->Clear();
+	ID3D12DescriptorHeap* descHeap = GEngine->getTableDescHeap()->getDescriptorHeap().Get();
+	_cmdList->SetDescriptorHeaps(1, &descHeap);
 
 	//barrier을 list에 집어넣는다. 
 	_cmdList->ResourceBarrier(1, &barrier);

@@ -41,6 +41,31 @@ void ConstantBuffer::CreateBuffer()
 	//이건 wait Sync참고
 }
 
+void ConstantBuffer::CreateView()
+{
+	D3D12_DESCRIPTOR_HEAP_DESC cbvDesc{ };
+	cbvDesc.NumDescriptors = _elementCount;
+	cbvDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	cbvDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	
+	DEVICE->CreateDescriptorHeap(&cbvDesc, IID_PPV_ARGS(&_cbvHeap));
+
+	_cpuHandleBegin = _cbvHeap->GetCPUDescriptorHandleForHeapStart();
+	_handleIncrementSize = DEVICE->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+	for (uint32 i = 0; i < _elementCount; ++i)
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE cbvHandle = getCpuHandle(i);
+
+		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc = {};
+		cbvDesc.BufferLocation = _cbvBuffer->GetGPUVirtualAddress() + static_cast<uint64>(_elementSize) * i;
+		cbvDesc.SizeInBytes = _elementSize; 
+
+		DEVICE->CreateConstantBufferView(&cbvDesc, cbvHandle);
+	}
+
+}
+
 void ConstantBuffer::Init(uint32 size, uint32 count)
 {
 	//상수 버퍼는 256byte 배수로 만들라고 정해져있다.
@@ -50,6 +75,7 @@ void ConstantBuffer::Init(uint32 size, uint32 count)
 	_elementCount = count;
 
 	CreateBuffer();
+	CreateView();
 }
 
 void ConstantBuffer::Clear()
@@ -58,7 +84,7 @@ void ConstantBuffer::Clear()
 }
 
 //rootParamIndex는 RootSignature에서 만든 Constant register index이다.
-void ConstantBuffer::PushData(int32 rootParamIndex, void* buffer, uint32 size)
+D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::PushData(int32 rootParamIndex, void* buffer, uint32 size)
 {
 	//assert는 디버깅 코드로 아래와 같은 조건이 만족하지 않으면 Crash한다.
 	assert(_currentIndex < _elementSize);
@@ -67,11 +93,15 @@ void ConstantBuffer::PushData(int32 rootParamIndex, void* buffer, uint32 size)
 	//즉 cpu에 있는 정보를 gpu ram에 있는 buffer에 복사한다는 것. /즉시 일어남
 	::memcpy(&_mappedBuffer[_currentIndex * _elementSize], buffer, size);
 
-	D3D12_GPU_VIRTUAL_ADDRESS address = getGpuVirtualAddress(_currentIndex);
-	//gpu register에 일감등록
-	//buffer주소를 참고해서 register에 넣어주세요. 라는 작업
-	CMD_LIST->SetGraphicsRootConstantBufferView(rootParamIndex, address);
+	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = getCpuHandle(_currentIndex);
+
+	//D3D12_GPU_VIRTUAL_ADDRESS address = getGpuVirtualAddress(_currentIndex);
+	////gpu register에 일감등록
+	////buffer주소를 참고해서 register에 넣어주세요. 라는 작업
+	//CMD_LIST->SetGraphicsRootConstantBufferView(rootParamIndex, address);
 	_currentIndex++;
+
+	return cpuHandle;
 }
 
 D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
@@ -80,6 +110,16 @@ D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
 	D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = _cbvBuffer->GetGPUVirtualAddress();
 	objCBAddress += index * _elementSize;
 	return objCBAddress;
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::getCpuHandle(uint32 index)
+{
+	/*
+		d3d12_cpu_descirptor_handle handle = _cpuHandleBegin;
+		handle.ptr += index * _handleincreamentSize;
+		return handle
+	*/
+	return CD3DX12_CPU_DESCRIPTOR_HANDLE(_cpuHandleBegin, index * _handleIncrementSize);
 }
 
 

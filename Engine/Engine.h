@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "ConstantBuffer.h"
+#include "TableDescriptorHeap.h"
 
 class Engine
 {
@@ -21,15 +22,17 @@ private:
 	shared_ptr<SwapChain> _swapChain;
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
+	shared_ptr<TableDescriptorHeap> _tableDescHeap;
 
 
 public:
 
-	shared_ptr<Device> getDevice()					{ return _device; }
-	shared_ptr<CommandQueue> getCommandQueue()		{ return _cmdQueue; }
-	shared_ptr<SwapChain> getSwapChain()			{ return _swapChain; }
-	shared_ptr<RootSignature> getRootSignature()	{ return _rootSignature; }
-	shared_ptr<ConstantBuffer> getCB()				{ return _cb;  }
+	shared_ptr<Device> getDevice()						{ return _device; }
+	shared_ptr<CommandQueue> getCommandQueue()			{ return _cmdQueue; }
+	shared_ptr<SwapChain> getSwapChain()				{ return _swapChain; }
+	shared_ptr<RootSignature> getRootSignature()		{ return _rootSignature; }
+	shared_ptr<ConstantBuffer> getCB()					{ return _cb;  }
+	shared_ptr<TableDescriptorHeap> getTableDescHeap()	{ return _tableDescHeap;  }
 public:
 
 	void Init(const WindowInfo& window);
