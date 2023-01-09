@@ -4,6 +4,7 @@
 
 shared_ptr<Mesh> mesh = make_shared<Mesh>();
 shared_ptr<Shader> shader = make_shared<Shader>();
+shared_ptr<Texture> texture = make_shared<Texture>();
 
 void Game::Init(const WindowInfo& info)
 {
@@ -13,15 +14,19 @@ void Game::Init(const WindowInfo& info)
 	
 	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);
 	vec[0].color = Vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	vec[0].uv = Vec2(0.0f, 0.0f);
 
 	vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
 	vec[1].color = Vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	vec[1].uv = Vec2(1.0f, 0.0f);
 
 	vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
 	vec[2].color = Vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	vec[2].uv = Vec2(1.0f, 1.0f);
 
 	vec[3].pos = Vec3(-0.5f, -0.5f, 0.5f);
 	vec[3].color = Vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	vec[3].uv = Vec2(0.0f, 1.0f);
 	
 	vector<uint32> indexVec;
 	{
@@ -38,6 +43,8 @@ void Game::Init(const WindowInfo& info)
 	mesh->Init(vec, indexVec);
 	
 	shader->Init(L"..\\Resource\\shader\\default.hlsli");
+
+	texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
 	
 	GEngine->getCommandQueue()->WaitSync();
 }
@@ -85,6 +92,8 @@ void Game::Update()
 		Transform t;
 		t.offset = Vec4(0.0f, 0.0f, 0.0f, 0.0f);
 		mesh->setTransform(t);
+
+		mesh->setTexture(texture);
 
 		mesh->Render();
 	}

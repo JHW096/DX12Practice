@@ -1,5 +1,7 @@
 #pragma once
 
+#define _HAS_STD_BYTE 0
+
 #include<Windows.h>
 #include<tchar.h>
 #include<memory>
@@ -10,6 +12,9 @@
 #include<map>
 
 using namespace std;
+
+#include<filesystem>
+namespace fs = std::filesystem;
 
 #include"d3dx12.h"
 #include<d3d12.h>
@@ -35,7 +40,7 @@ using namespace Microsoft::WRL;
 #ifdef _DEBUG
 #pragma comment (lib, "DirectXTex\\DirectXTex_debug.lib")
 #else
-#pragma comment (lib, "DirecXTex\\DirectXTex.lib")
+#pragma comment (lib, "DirectXTex\\DirectXTex.lib")
 #endif // _DEBUG
 
 
@@ -52,7 +57,7 @@ using Vec3 = XMFLOAT3;
 using Vec4 = XMFLOAT4;
 using Matrix = XMMATRIX;
 
-enum class CBV_REGISTER
+enum class CBV_REGISTER : uint8
 {
 	b0,
 	b1,
@@ -62,11 +67,23 @@ enum class CBV_REGISTER
 	END
 };
 
+enum class SRV_REGISTER : uint8
+{
+	t0 = static_cast<uint8>(CBV_REGISTER::END),
+	t1,
+	t2,
+	t3,
+	t4,
+	END
+};
+
+
 enum
 {
 	SWAP_CAHIN_BUFFER_COUNT = 2,
 	CBV_REGISTER_COUNT = CBV_REGISTER::END,
-	REGISTER_COUNT = CBV_REGISTER::END
+	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT, 
+	REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT
 };
 
 struct WindowInfo
@@ -82,16 +99,18 @@ struct Vertex
 {
 	Vec3 pos;	//x, y, zÃà
 	Vec4 color; //RGBA
+	Vec2 uv;	//ÁÂÇ¥
 };
 
 struct Transform
 {
 	Vec4 offset;
 };
-
-#define DEVICE		GEngine->getDevice()->getDeivce()
-#define CMD_LIST	GEngine->getCommandQueue()->getCmdList()
-#define ROOT_SIGNATURE GEngine->getRootSignature()->getSignature()
+	
+#define DEVICE						GEngine->getDevice()->getDeivce()
+#define CMD_LIST					GEngine->getCommandQueue()->getCmdList()
+#define RESOURCE_CMD_LIST			GEngine->getCommandQueue()->getResourceCmdList()
+#define ROOT_SIGNATURE				GEngine->getRootSignature()->getSignature()
 
 extern unique_ptr<class Engine> GEngine;
 

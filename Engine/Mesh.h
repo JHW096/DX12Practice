@@ -1,4 +1,7 @@
 #pragma once
+
+class Texture;
+
 class Mesh
 {
 private:
@@ -12,6 +15,9 @@ private:
 	uint32 _indexCount{ };
 
 	Transform _transform{ };
+	
+	//test
+	shared_ptr<Texture> _tex{ };
 
 private:
 
@@ -25,5 +31,9 @@ public:
 	void Render();
 
 	void setTransform(const Transform& t) { _transform = t; }
+
+
+	//Test 
+	void setTexture(shared_ptr<Texture> tex) { _tex = tex;  }
 };
 

@@ -25,7 +25,7 @@ void Engine::Init(const WindowInfo& info)
 	_device->Init();
 	_cmdQueue->Init(_device->getDeivce(), _swapChain);
 	_swapChain->Init(info, _device->getDeivce(), _device->getDXGI(), _cmdQueue->getCmdQueue());
-	_rootSignature->Init(_device->getDeivce());
+	_rootSignature->Init();
 	_cb->Init(sizeof(Transform), 256);
 	_tableDescHeap->Init(256);
 }

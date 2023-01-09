@@ -35,6 +35,11 @@ private:
 	ComPtr<ID3D12CommandAllocator> _cmdAlloc;	//일감 할당(helper)
 	ComPtr<ID3D12GraphicsCommandList> _cmdList;	//일감 list
 
+
+	//-------------resource Node용
+	ComPtr<ID3D12CommandAllocator> _resCmdAlloc;
+	ComPtr<ID3D12GraphicsCommandList> _resCmdList;
+
 	//cpu, gpu 동기화 도구, CommandQueue와 같이 사용
 	//모든 일처리가 끝날 때 까지 대기?..
 	ComPtr<ID3D12Fence> _fence;
@@ -50,6 +55,8 @@ public:
 	ComPtr<ID3D12CommandQueue> getCmdQueue() { return _cmdQueue; }
 	ComPtr<ID3D12GraphicsCommandList> getCmdList() { return _cmdList; }
 
+	ComPtr<ID3D12GraphicsCommandList> getResourceCmdList() { return _resCmdList; }
+
 public:
 
 	void Init(
@@ -64,5 +71,7 @@ public:
 	void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
 	void RenderEnd();
 
+
+	void FlushResourceCommandQueue();
 };
 
