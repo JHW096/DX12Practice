@@ -6,7 +6,7 @@
 void Engine::Init(const WindowInfo& info)
 {
 	_window = info;
-	ResizeWindow(info.width, info.height);
+	
 	
 	//그려질 화면 크기를 설정
 	//viewport(topleftX, topleftY, width, height, MinDepth, MaxDepth)
@@ -21,6 +21,7 @@ void Engine::Init(const WindowInfo& info)
 	_rootSignature = make_shared<RootSignature>();
 	_cb = make_shared<ConstantBuffer>();
 	_tableDescHeap = make_shared<TableDescriptorHeap>();
+	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->getDeivce(), _swapChain);
@@ -28,6 +29,9 @@ void Engine::Init(const WindowInfo& info)
 	_rootSignature->Init();
 	_cb->Init(sizeof(Transform), 256);
 	_tableDescHeap->Init(256);
+	_depthStencilBuffer->Init(_window);
+
+	ResizeWindow(info.width, info.height);
 }
 
 void Engine::Render()
@@ -59,4 +63,6 @@ void Engine::ResizeWindow(int32 width, int32 height)
 	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 	//setwindowpos(어떤 윈도우인가, 윈도우의 위치 0 = 가장 앞, posX, posY, width, height, 창크기 조정)
 	::SetWindowPos(_window.hwnd, 0, 100, 100, width, height, 0);
+
+	_depthStencilBuffer->Init(_window);
 }

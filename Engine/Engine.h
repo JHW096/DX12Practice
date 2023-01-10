@@ -9,6 +9,7 @@
 #include "ConstantBuffer.h"
 #include "TableDescriptorHeap.h"
 #include "Texture.h"
+#include "DepthStencilBuffer.h"
 
 class Engine
 {
@@ -24,16 +25,18 @@ private:
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
 	shared_ptr<TableDescriptorHeap> _tableDescHeap;
+	shared_ptr<DepthStencilBuffer> _depthStencilBuffer;
 
 
 public:
 
-	shared_ptr<Device> getDevice()						{ return _device; }
-	shared_ptr<CommandQueue> getCommandQueue()			{ return _cmdQueue; }
-	shared_ptr<SwapChain> getSwapChain()				{ return _swapChain; }
-	shared_ptr<RootSignature> getRootSignature()		{ return _rootSignature; }
-	shared_ptr<ConstantBuffer> getCB()					{ return _cb;  }
-	shared_ptr<TableDescriptorHeap> getTableDescHeap()	{ return _tableDescHeap;  }
+	shared_ptr<Device> getDevice()							{ return _device; }
+	shared_ptr<CommandQueue> getCommandQueue()				{ return _cmdQueue; }
+	shared_ptr<SwapChain> getSwapChain()					{ return _swapChain; }
+	shared_ptr<RootSignature> getRootSignature()			{ return _rootSignature; }
+	shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
+	shared_ptr<TableDescriptorHeap> getTableDescHeap()		{ return _tableDescHeap;  }
+	shared_ptr<DepthStencilBuffer> getDepthStencilBuffer()	{ return _depthStencilBuffer; }
 public:
 
 	void Init(const WindowInfo& window);

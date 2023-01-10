@@ -87,6 +87,17 @@ void Game::Update()
 	GEngine->RenderBegin();
 
 	shader->Update();
+	{
+		Transform t;
+		t.offset = Vec4(0.25f, 0.25f, 0.0f, 0.0f);
+		mesh->setTransform(t);
+
+		mesh->setTexture(texture);
+
+		mesh->Render();
+	}
+
+
 
 	{
 		Transform t;
@@ -98,8 +109,7 @@ void Game::Update()
 		mesh->Render();
 	}
 
-
-
+	
 
 
 	GEngine->RenderEnd();
