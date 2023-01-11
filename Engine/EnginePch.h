@@ -112,5 +112,7 @@ struct Transform
 #define RESOURCE_CMD_LIST			GEngine->getCommandQueue()->getResourceCmdList()
 #define ROOT_SIGNATURE				GEngine->getRootSignature()->getSignature()
 
+#define INPUT						GEngine->getInput()
+
 extern unique_ptr<class Engine> GEngine;
 

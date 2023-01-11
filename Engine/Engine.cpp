@@ -14,15 +14,6 @@ void Engine::Init(const WindowInfo& info)
 	//typedef RECT D3D12_RECT;
 	_scissorRect = CD3DX12_RECT(0, 0, info.width, info.height);
 
-
-	_device = make_shared<Device>();
-	_cmdQueue = make_shared<CommandQueue>();
-	_swapChain = make_shared<SwapChain>();
-	_rootSignature = make_shared<RootSignature>();
-	_cb = make_shared<ConstantBuffer>();
-	_tableDescHeap = make_shared<TableDescriptorHeap>();
-	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
-
 	_device->Init();
 	_cmdQueue->Init(_device->getDeivce(), _swapChain);
 	_swapChain->Init(info, _device->getDeivce(), _device->getDXGI(), _cmdQueue->getCmdQueue());
@@ -30,6 +21,8 @@ void Engine::Init(const WindowInfo& info)
 	_cb->Init(sizeof(Transform), 256);
 	_tableDescHeap->Init(256);
 	_depthStencilBuffer->Init(_window);
+
+	_input->Init(info.hwnd);
 
 	ResizeWindow(info.width, info.height);
 }
@@ -39,6 +32,11 @@ void Engine::Render()
 	RenderBegin();
 
 	RenderEnd();
+}
+
+void Engine::Update()
+{
+	_input->Update();
 }
 
 void Engine::RenderBegin()
