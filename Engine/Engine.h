@@ -12,6 +12,7 @@
 #include "DepthStencilBuffer.h"
 
 #include "Input.h"
+#include "Timer.h"
 
 class Engine
 {
@@ -32,6 +33,7 @@ private:
 	
 	//static Fn
 	shared_ptr<Input> _input = make_shared<Input>();
+	shared_ptr<Timer> _timer = make_shared<Timer>();
 
 public:
 
@@ -44,6 +46,7 @@ public:
 	shared_ptr<DepthStencilBuffer> getDepthStencilBuffer()	{ return _depthStencilBuffer; }
 
 	shared_ptr<Input> getInput()							{ return _input; }
+	shared_ptr<Timer> getTimer()							{ return _timer; }
 
 public:
 
@@ -61,5 +64,9 @@ public:
 
 	void ResizeWindow(int32 width, int32 height);
 
+private:
+
+	void ShowFPS();
 };
+
 

@@ -113,6 +113,7 @@ struct Transform
 #define ROOT_SIGNATURE				GEngine->getRootSignature()->getSignature()
 
 #define INPUT						GEngine->getInput()
+#define DELTA_TIME					GEngine->getTimer()->getDeltaTime()
 
 extern unique_ptr<class Engine> GEngine;
 

@@ -94,19 +94,19 @@ void Game::Update()
 		
 		if (INPUT->GetButton(KEY_TYPE::W))
 		{
-			t.offset.y += 1.0f * 0.001f;
+			t.offset.y += 1.0f * DELTA_TIME;
 		}
 		if (INPUT->GetButton(KEY_TYPE::S))
 		{
-			t.offset.y -= 1.0f * 0.001f;
+			t.offset.y -= 1.0f * DELTA_TIME;
 		}
 		if (INPUT->GetButton(KEY_TYPE::A))
 		{
-			t.offset.x -= 1.0f * 0.001f;
+			t.offset.x -= 1.0f * DELTA_TIME;
 		}
 		if (INPUT->GetButton(KEY_TYPE::D))
 		{
-			t.offset.x += 1.0f * 0.001f;
+			t.offset.x += 1.0f * DELTA_TIME;
 		}
 
 		mesh->setTransform(t);
