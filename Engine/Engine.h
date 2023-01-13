@@ -31,9 +31,12 @@ private:
 	shared_ptr<TableDescriptorHeap> _tableDescHeap = make_shared<TableDescriptorHeap>();
 	shared_ptr<DepthStencilBuffer> _depthStencilBuffer = make_shared<DepthStencilBuffer>();
 	
+	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
 	//static Fn
 	shared_ptr<Input> _input = make_shared<Input>();
 	shared_ptr<Timer> _timer = make_shared<Timer>();
+
+
 
 public:
 
@@ -41,12 +44,17 @@ public:
 	shared_ptr<CommandQueue> getCommandQueue()				{ return _cmdQueue; }
 	shared_ptr<SwapChain> getSwapChain()					{ return _swapChain; }
 	shared_ptr<RootSignature> getRootSignature()			{ return _rootSignature; }
-	shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
+	//shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
 	shared_ptr<TableDescriptorHeap> getTableDescHeap()		{ return _tableDescHeap;  }
 	shared_ptr<DepthStencilBuffer> getDepthStencilBuffer()	{ return _depthStencilBuffer; }
 
 	shared_ptr<Input> getInput()							{ return _input; }
 	shared_ptr<Timer> getTimer()							{ return _timer; }
+
+	shared_ptr<ConstantBuffer> getConstantBuffer(CONSTANT_BUFFER_TYPE type) 
+	{
+		return _constantBuffers[static_cast<uint8>(type)];
+	}
 
 public:
 
@@ -67,6 +75,7 @@ public:
 private:
 
 	void ShowFPS();
+	void CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count);
 };
 
 

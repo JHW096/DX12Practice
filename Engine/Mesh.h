@@ -1,6 +1,7 @@
 #pragma once
 
-class Texture;
+//class Texture;
+class Material;
 
 class Mesh
 {
@@ -17,7 +18,8 @@ private:
 	Transform _transform{ };
 	
 	//test
-	shared_ptr<Texture> _tex{ };
+	//shared_ptr<Texture> _tex{ };
+	shared_ptr<Material> _mat{ };
 
 private:
 
@@ -34,6 +36,7 @@ public:
 
 
 	//Test 
-	void setTexture(shared_ptr<Texture> tex) { _tex = tex;  }
+	//void setTexture(shared_ptr<Texture> tex) { _tex = tex;  }
+	void setMaterial(shared_ptr<Material> mat) { _mat = mat; }
 };
 

@@ -115,5 +115,6 @@ struct Transform
 #define INPUT						GEngine->getInput()
 #define DELTA_TIME					GEngine->getTimer()->getDeltaTime()
 
+#define CONST_BUFFER(type)			GEngine->getConstantBuffer(type)
 extern unique_ptr<class Engine> GEngine;
 

@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "Game.h"
 #include "Engine.h"
+#include "Material.h"
 
 shared_ptr<Mesh> mesh = make_shared<Mesh>();
-shared_ptr<Shader> shader = make_shared<Shader>();
-shared_ptr<Texture> texture = make_shared<Texture>();
+//shared_ptr<Shader> shader = make_shared<Shader>();
+//shared_ptr<Texture> texture = make_shared<Texture>();
 
 void Game::Init(const WindowInfo& info)
 {
@@ -42,10 +43,22 @@ void Game::Init(const WindowInfo& info)
 
 	mesh->Init(vec, indexVec);
 	
-	shader->Init(L"..\\Resource\\shader\\default.hlsli");
+	shared_ptr<Shader> shader = make_shared<Shader>();
+	shared_ptr<Texture> texture = make_shared<Texture>();
 
+	shader->Init(L"..\\Resource\\shader\\default.hlsli");
 	texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
 	
+
+	shared_ptr<Material> material = make_shared<Material>();
+	material->setShader(shader);
+	material->setFloat(0, 0.1f);
+	material->setFloat(1, 0.2f);
+	material->setFloat(2, 0.3f);
+	material->setTexture(0, texture);
+	mesh->setMaterial(material);
+
+
 	GEngine->getCommandQueue()->WaitSync();
 }
 
@@ -88,7 +101,7 @@ void Game::Update()
 
 	GEngine->RenderBegin();
 
-	shader->Update();
+	
 	{
 		static Transform t{ };
 		
@@ -111,7 +124,6 @@ void Game::Update()
 
 		mesh->setTransform(t);
 
-		mesh->setTexture(texture);
 
 		mesh->Render();
 	}

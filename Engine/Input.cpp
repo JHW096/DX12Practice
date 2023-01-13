@@ -19,10 +19,16 @@ void Input::Update()
 		return;
 	}
 
+	BYTE ascilKeys[KEY_TYPE_COUNT]{ };
+	if (::GetKeyboardState(ascilKeys) == false)
+	{
+		return;
+	}
+
 	for (uint32 key = 0; key < KEY_TYPE_COUNT; key++)
 	{
 		//키가 눌려있는지 체크
-		if (::GetAsyncKeyState(key) & 0x8000)
+		if (ascilKeys[key] & 0x80)
 		{
 			KEY_STATE& state = _states[key];
 

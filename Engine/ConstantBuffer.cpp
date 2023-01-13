@@ -66,8 +66,9 @@ void ConstantBuffer::CreateView()
 
 }
 
-void ConstantBuffer::Init(uint32 size, uint32 count)
+void ConstantBuffer::Init(CBV_REGISTER reg, uint32 size, uint32 count)
 {
+	_reg = reg;
 	//상수 버퍼는 256byte 배수로 만들라고 정해져있다.
 	// 0 256  512 ..
 	//255(1111 1111) 와 반전 and 즉 256으로 반내림 그러나 우린 상수 버퍼는 남는게 좋기에 + 255를 해준다.
@@ -84,10 +85,11 @@ void ConstantBuffer::Clear()
 }
 
 //rootParamIndex는 RootSignature에서 만든 Constant register index이다.
-D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::PushData(int32 rootParamIndex, void* buffer, uint32 size)
+void ConstantBuffer::PushData(void* buffer, uint32 size)
 {
 	//assert는 디버깅 코드로 아래와 같은 조건이 만족하지 않으면 Crash한다.
-	assert(_currentIndex < _elementSize);
+	assert(_currentIndex < _elementCount);
+	assert(_elementSize == ((size + 255) & ~255));
 
 	//해당 index위치에 요청한 buffer를 복사한다.
 	//즉 cpu에 있는 정보를 gpu ram에 있는 buffer에 복사한다는 것. /즉시 일어남
@@ -95,13 +97,14 @@ D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::PushData(int32 rootParamIndex, void*
 
 	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = getCpuHandle(_currentIndex);
 
+
+	GEngine->getTableDescHeap()->setCBV(cpuHandle, _reg);
+
 	//D3D12_GPU_VIRTUAL_ADDRESS address = getGpuVirtualAddress(_currentIndex);
 	////gpu register에 일감등록
 	////buffer주소를 참고해서 register에 넣어주세요. 라는 작업
 	//CMD_LIST->SetGraphicsRootConstantBufferView(rootParamIndex, address);
 	_currentIndex++;
-
-	return cpuHandle;
 }
 
 D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
