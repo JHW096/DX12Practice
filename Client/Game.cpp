@@ -3,16 +3,21 @@
 #include "Engine.h"
 #include "Material.h"
 
-shared_ptr<Mesh> mesh = make_shared<Mesh>();
+#include "GameObject.h"
+#include "MeshRenderer.h"
+
+shared_ptr<GameObject> gameObject = make_shared<GameObject>();
+
+
 //shared_ptr<Shader> shader = make_shared<Shader>();
 //shared_ptr<Texture> texture = make_shared<Texture>();
 
 void Game::Init(const WindowInfo& info)
 {
 	GEngine->Init(info);
-		
+
 	vector<Vertex> vec(4);
-	
+
 	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);
 	vec[0].color = Vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	vec[0].uv = Vec2(0.0f, 0.0f);
@@ -28,7 +33,7 @@ void Game::Init(const WindowInfo& info)
 	vec[3].pos = Vec3(-0.5f, -0.5f, 0.5f);
 	vec[3].color = Vec4(0.0f, 1.0f, 0.0f, 1.0f);
 	vec[3].uv = Vec2(0.0f, 1.0f);
-	
+
 	vector<uint32> indexVec;
 	{
 		indexVec.push_back(0);
@@ -41,22 +46,33 @@ void Game::Init(const WindowInfo& info)
 		indexVec.push_back(3);
 	}
 
-	mesh->Init(vec, indexVec);
-	
-	shared_ptr<Shader> shader = make_shared<Shader>();
-	shared_ptr<Texture> texture = make_shared<Texture>();
+	gameObject->Init(); //Transform
 
-	shader->Init(L"..\\Resource\\shader\\default.hlsli");
-	texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
-	
+	shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
+	{
+		shared_ptr<Mesh> mesh = make_shared<Mesh>();
+		mesh->Init(vec, indexVec);
+		meshRenderer->setMesh(mesh);
+	}
 
-	shared_ptr<Material> material = make_shared<Material>();
-	material->setShader(shader);
-	material->setFloat(0, 0.1f);
-	material->setFloat(1, 0.2f);
-	material->setFloat(2, 0.3f);
-	material->setTexture(0, texture);
-	mesh->setMaterial(material);
+	{
+		shared_ptr<Shader> shader = make_shared<Shader>();
+		shared_ptr<Texture> texture = make_shared<Texture>();
+
+		shader->Init(L"..\\Resource\\shader\\default.hlsli");
+		texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
+
+
+		shared_ptr<Material> material = make_shared<Material>();
+		material->setShader(shader);
+		material->setFloat(0, 0.1f);
+		material->setFloat(1, 0.2f);
+		material->setFloat(2, 0.3f);
+		material->setTexture(0, texture);
+		meshRenderer->setMaterial(material);;
+	}
+	
+	gameObject->addComponent(meshRenderer);
 
 
 	GEngine->getCommandQueue()->WaitSync();
@@ -101,47 +117,7 @@ void Game::Update()
 
 	GEngine->RenderBegin();
 
+	gameObject->Update();
 	
-	{
-		static Transform t{ };
-		
-		if (INPUT->GetButton(KEY_TYPE::W))
-		{
-			t.offset.y += 1.0f * DELTA_TIME;
-		}
-		if (INPUT->GetButton(KEY_TYPE::S))
-		{
-			t.offset.y -= 1.0f * DELTA_TIME;
-		}
-		if (INPUT->GetButton(KEY_TYPE::A))
-		{
-			t.offset.x -= 1.0f * DELTA_TIME;
-		}
-		if (INPUT->GetButton(KEY_TYPE::D))
-		{
-			t.offset.x += 1.0f * DELTA_TIME;
-		}
-
-		mesh->setTransform(t);
-
-
-		mesh->Render();
-	}
-
-
-
-	/*{
-		Transform t;
-		t.offset = Vec4(0.0f, 0.0f, 0.3f, 0.0f);
-		mesh->setTransform(t);
-
-		mesh->setTexture(texture);
-
-		mesh->Render();
-	}*/
-
-	
-
-
 	GEngine->RenderEnd();
 }

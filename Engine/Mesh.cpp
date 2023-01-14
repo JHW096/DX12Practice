@@ -23,12 +23,9 @@ void Mesh::Render()
 	//2) TableDescHeap에다 CBV전달
 	//3) 모두 세팅이 끝났으면 TableDescHeap 커밋
 	
-	CONST_BUFFER(CONSTANT_BUFFER_TYPE::TRANSFORM)->PushData(&_transform, sizeof(_transform));
+
 	//GEngine->getTableDescHeap()->setCBV(handle, CBV_REGISTER::b0);
 	//GEngine->getTableDescHeap()->setSRV(_tex->getCpuHandle(), SRV_REGISTER::t0);
-	
-
-	_mat->Update();
 
 	GEngine->getTableDescHeap()->CommitTable();
 

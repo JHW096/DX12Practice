@@ -14,12 +14,10 @@ private:
 	ComPtr<ID3D12Resource> _indexBuffer;
 	D3D12_INDEX_BUFFER_VIEW _indexBufferView;
 	uint32 _indexCount{ };
-
-	Transform _transform{ };
 	
 	//test
 	//shared_ptr<Texture> _tex{ };
-	shared_ptr<Material> _mat{ };
+
 
 private:
 
@@ -32,11 +30,8 @@ public:
 
 	void Render();
 
-	void setTransform(const Transform& t) { _transform = t; }
-
 
 	//Test 
 	//void setTexture(shared_ptr<Texture> tex) { _tex = tex;  }
-	void setMaterial(shared_ptr<Material> mat) { _mat = mat; }
 };
 

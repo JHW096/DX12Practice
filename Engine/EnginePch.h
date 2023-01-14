@@ -102,10 +102,7 @@ struct Vertex
 	Vec2 uv;	//ÁÂÇ¥
 };
 
-struct Transform
-{
-	Vec4 offset;
-};
+
 	
 #define DEVICE						GEngine->getDevice()->getDeivce()
 #define CMD_LIST					GEngine->getCommandQueue()->getCmdList()
