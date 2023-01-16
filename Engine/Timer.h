@@ -2,6 +2,7 @@
 
 class Timer
 {
+	DECLARE_SINGLE(Timer);
 private:
 
 	uint64 _frequency{ 0 };

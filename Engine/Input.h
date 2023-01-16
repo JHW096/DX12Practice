@@ -30,6 +30,7 @@ enum
 
 class Input
 {
+	DECLARE_SINGLE(Input);
 private:
 
 	HWND _hwnd;

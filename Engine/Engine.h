@@ -11,9 +11,6 @@
 #include "Texture.h"
 #include "DepthStencilBuffer.h"
 
-#include "Input.h"
-#include "Timer.h"
-
 class Engine
 {
 private:
@@ -32,9 +29,10 @@ private:
 	shared_ptr<DepthStencilBuffer> _depthStencilBuffer = make_shared<DepthStencilBuffer>();
 	
 	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
-	//static Fn
-	shared_ptr<Input> _input = make_shared<Input>();
-	shared_ptr<Timer> _timer = make_shared<Timer>();
+
+	//move static Fn
+	/*shared_ptr<Input> _input = make_shared<Input>();
+	shared_ptr<Timer> _timer = make_shared<Timer>();*/
 
 
 
@@ -48,8 +46,9 @@ public:
 	shared_ptr<TableDescriptorHeap> getTableDescHeap()		{ return _tableDescHeap;  }
 	shared_ptr<DepthStencilBuffer> getDepthStencilBuffer()	{ return _depthStencilBuffer; }
 
-	shared_ptr<Input> getInput()							{ return _input; }
-	shared_ptr<Timer> getTimer()							{ return _timer; }
+	//move static function
+	/*shared_ptr<Input> getInput()							{ return _input; }
+	shared_ptr<Timer> getTimer()							{ return _timer; }*/
 
 	shared_ptr<ConstantBuffer> getConstantBuffer(CONSTANT_BUFFER_TYPE type) 
 	{
@@ -59,15 +58,15 @@ public:
 public:
 
 	void Init(const WindowInfo& window);
-	void Render();
-
-public:
-	
 	void Update();
-	void LateUpdate();
 
 public:
 
+	//void LateUpdate();
+
+public:
+
+	void Render();
 	void RenderBegin();
 	void RenderEnd();
 

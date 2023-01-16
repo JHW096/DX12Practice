@@ -102,15 +102,27 @@ struct Vertex
 	Vec2 uv;	//ÁÂÇ¥
 };
 
+#define DECLARE_SINGLE(type)	\
+private:						\
+	type() {}					\
+	~type() {}					\
+public:							\
+	static type* getInstance()	\
+	{							\
+		static type instance;	\
+		return &instance;		\
+	}							\
 
-	
+#define GET_SINGLE(type)		type::getInstance()
+
+
 #define DEVICE						GEngine->getDevice()->getDeivce()
 #define CMD_LIST					GEngine->getCommandQueue()->getCmdList()
 #define RESOURCE_CMD_LIST			GEngine->getCommandQueue()->getResourceCmdList()
 #define ROOT_SIGNATURE				GEngine->getRootSignature()->getSignature()
 
-#define INPUT						GEngine->getInput()
-#define DELTA_TIME					GEngine->getTimer()->getDeltaTime()
+#define INPUT						GET_SINGLE(Input)
+#define DELTA_TIME					GET_SINGLE(Timer)->getDeltaTime()
 
 #define CONST_BUFFER(type)			GEngine->getConstantBuffer(type)
 extern unique_ptr<class Engine> GEngine;
