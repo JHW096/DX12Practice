@@ -5,6 +5,8 @@ class MonoBehaviour : public Component
 {
 private:
 
+	virtual void FinalUpdate() sealed { }
+
 public:
 
 	MonoBehaviour();

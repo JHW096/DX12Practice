@@ -1,7 +1,13 @@
 
-cbuffer TEST_B0 : register(b0)
+cbuffer TRANSFORM_PARAMS : register(b0)
 {
-    float4 offset0;
+    //directX행렬 순서, 셰이더 접근 순서가 다르기 때문에 DX규칙으로 만듦.
+    /*
+       DX접근 방법 : 00, 01, 02 ..
+       Shader 방법 : 00, 10, 20 ..
+       따라서 row_major는 DX접근 방식인 행이동 부터 접근하도록 하라는 뜻.
+    */
+    row_major matrix matWVP;
 };
 
 //material
@@ -47,12 +53,8 @@ VS_OUT VS_Main(VS_IN input)
 {
     VS_OUT output = (VS_OUT)0;
 
-    output.pos = float4(input.pos, 1.f);
-    //output.pos += offset0;
-    output.pos.x += float_0;
-    output.pos.y += float_1;
-    output.pos.z += float_2;
-
+    //어떤 정점이든, 매트릭스 WVP를 적용시키겠다.
+    output.pos = mul(float4(input.pos, 1.f), matWVP);
     output.color = input.color;
     output.uv = input.uv;
 
