@@ -18,7 +18,7 @@ public:
 	void setMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
 	void setMaterial(shared_ptr<Material> material) { _material = material; }
 
-	virtual void Update() override { Render(); }
+	
 
 	void Render();
 

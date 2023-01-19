@@ -38,6 +38,6 @@ public:
 	void setFloat(uint8 index, float value) { _params.setFloat(index, value); }
 	void setTexture(uint8 index, shared_ptr<Texture> texture) { _textures[index] = texture; }
 	
-	void Update();
+	void PushData();
 };
 

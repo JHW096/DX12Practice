@@ -104,18 +104,18 @@ struct Vertex
 	Vec2 uv;	//ÁÂÇ¥
 };
 
-#define DECLARE_SINGLE(type)	\
-private:						\
-	type() {}					\
-	~type() {}					\
-public:							\
-	static type* getInstance()	\
-	{							\
-		static type instance;	\
-		return &instance;		\
-	}							\
+#define DECLARE_SINGLE(type)		\
+private:							\
+	type() {}						\
+	~type() {}						\
+public:								\
+	static type* GetInstance()		\
+	{								\
+		static type instance;		\
+		return &instance;			\
+	}								\
 
-#define GET_SINGLE(type)		type::getInstance()
+#define GET_SINGLE(type)	type::GetInstance()
 
 
 #define DEVICE						GEngine->getDevice()->getDeivce()

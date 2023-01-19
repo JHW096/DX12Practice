@@ -12,7 +12,7 @@ private:
 public:
 
 	void Update();
-
+	void Render();
 	void LoadScene(wstring scenName);
 
 public:

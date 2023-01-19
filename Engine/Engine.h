@@ -38,6 +38,8 @@ private:
 
 public:
 
+	const WindowInfo& getWindow() { return _window; }
+
 	shared_ptr<Device> getDevice()							{ return _device; }
 	shared_ptr<CommandQueue> getCommandQueue()				{ return _cmdQueue; }
 	shared_ptr<SwapChain> getSwapChain()					{ return _swapChain; }

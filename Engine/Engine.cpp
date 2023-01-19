@@ -44,6 +44,7 @@ void Engine::Update()
 {
 	GET_SINGLE(Input)->Update();
 	GET_SINGLE(Timer)->Update();
+	GET_SINGLE(SceneManager)->Update();
 
 	Render();
 
@@ -56,7 +57,7 @@ void Engine::Render()
 {
 	RenderBegin();
 
-	GET_SINGLE(SceneManager)->Update();
+	GET_SINGLE(SceneManager)->Render();
 
 	RenderEnd();
 }
