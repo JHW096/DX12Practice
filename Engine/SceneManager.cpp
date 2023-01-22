@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 
+#include "TestCameraScript.h"
 
 void SceneManager::Update()
 {
@@ -134,7 +135,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	shared_ptr<GameObject> camera = make_shared<GameObject>();
 	camera->addComponent(make_shared<Transform>());
 	camera->addComponent(make_shared<Camera>());		//near =1, far = 100, fov = 45
-	//camera->addComponent(make_shared<Transform>());
+	camera->addComponent(make_shared<TestCameraScript>());
 
 	camera->getTransform()->SetLocalPosition(Vec3(0.0f, 100.0f, 0.0f));
 	scene->AddGameObject(camera);
