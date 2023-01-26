@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 
 enum class COMPONENT_TYPE : uint8
 {
@@ -19,7 +20,7 @@ class GameObject;
 class Transform;
 
 
-class Component
+class Component : public Object
 {
 protected:
 

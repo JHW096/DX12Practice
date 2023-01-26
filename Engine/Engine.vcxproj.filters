@@ -13,14 +13,17 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{fbe4b49e-d16b-4e8b-9cb3-044551fb3370}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{50b4149b-455d-402d-9dfa-55a58d8a3688}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{b2320c3e-c9cc-409c-bf34-75ae17fa6993}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Test">
+    <Filter Include="Object">
+      <UniqueIdentifier>{50b4149b-455d-402d-9dfa-55a58d8a3688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Test">
       <UniqueIdentifier>{c933a9f6-4788-4689-a40f-f91dd4dd4237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{ef7b857d-7829-46c4-8402-ac2242efef2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,21 +70,6 @@
     <ClInclude Include="Material.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MonoBehaviour.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -97,11 +85,32 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="TestCameraScript.h">
-      <Filter>GameObject\Test</Filter>
+      <Filter>Object\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoBehaviour.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,21 +154,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="MonoBehaviour.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -175,11 +169,32 @@
     <ClCompile Include="SimpleMath.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="TestCameraScript.cpp">
-      <Filter>GameObject\Test</Filter>
+      <Filter>Object\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoBehaviour.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

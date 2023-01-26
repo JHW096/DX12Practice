@@ -1,6 +1,7 @@
 #pragma once
+#include "Object.h"
 
-class Texture
+class Texture : public Object
 {
 private:
 	//Resource
@@ -9,7 +10,13 @@ private:
 
 	//View
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;	
-	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle;
+	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = { };
+
+
+public:
+
+	Texture();
+	virtual ~Texture();
 
 public:
 

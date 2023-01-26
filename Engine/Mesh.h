@@ -1,9 +1,9 @@
 #pragma once
-
+#include "Object.h"
 //class Texture;
 class Material;
 
-class Mesh
+class Mesh : public Object
 {
 private:
 
@@ -23,6 +23,12 @@ private:
 
 	void CreateVertexBuffer(const vector<Vertex>& buffer);
 	void CreateIndexBuffer(const vector<uint32>& buffer);
+
+
+public:
+
+	Mesh();
+	virtual ~Mesh();
 
 public:
 

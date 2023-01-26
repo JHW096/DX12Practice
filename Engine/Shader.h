@@ -1,5 +1,6 @@
 #pragma once
-class Shader
+#include "Object.h"
+class Shader : public Object
 {
 private:
 
@@ -7,6 +8,10 @@ private:
 	ComPtr<ID3DBlob> _psBlob;
 	ComPtr<ID3DBlob> _errBlob;
 
+public:
+	
+	Shader();
+	virtual ~Shader();
 
 public:
 

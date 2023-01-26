@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 
 class Shader;
 class Texture;
@@ -20,7 +21,7 @@ struct MaterialParams
 
 };
 
-class Material
+class Material : public Object
 {
 private:
 
@@ -28,6 +29,10 @@ private:
 	MaterialParams _params;
 	array<shared_ptr<Texture>, MATERIAL_TEXTURE_COUNT> _textures;
 
+public:
+
+	Material();
+	virtual ~Material();
 
 public:
 

@@ -1,12 +1,13 @@
 #pragma once
 #include "Component.h"
+#include "Object.h"
 
 class Transform;
 class MeshRenderer;
 class MonoBehaviour;
 class Camera;
 
-class GameObject : public enable_shared_from_this<GameObject>
+class GameObject : public Object, public enable_shared_from_this<GameObject>
 	//enable_shared_from_this는 별 다른 것이 아닌,
 	//weak_ptr<GameObject> _wptr를 가지게 하여 shared_from_this를 사용할 수 있게함.
 {
