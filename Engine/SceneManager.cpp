@@ -169,6 +169,32 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 
 #pragma endregion
 
+#pragma region Cube
+
+	shared_ptr<GameObject> Cube = make_shared<GameObject>();
+	Cube->addComponent(make_shared<Transform>());
+	Cube->getTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
+	Cube->getTransform()->SetLocalPosition(Vec3(150.0f, 100.0f, 200.0f));
+	shared_ptr<MeshRenderer> cubeRenderer = make_shared<MeshRenderer>();
+	{
+		shared_ptr<Mesh> cubeMesh = GET_SINGLE(Resources)->LoadCubeMesh();
+		cubeRenderer->setMesh(cubeMesh);
+	}
+	{
+		shared_ptr<Shader> cubeShader = make_shared<Shader>();
+		shared_ptr<Texture> cubeTexture = make_shared<Texture>();
+		cubeShader->Init(L"..\\Resource\\Shader\\default.hlsli");
+		cubeTexture->Init(L"..\\Resource\\Texture\\Gun.jpg");
+		shared_ptr<Material> cubeMaterial = make_shared<Material>();
+		cubeMaterial->setShader(cubeShader);
+		cubeMaterial->setTexture(0, cubeTexture);
+		cubeRenderer->setMaterial(cubeMaterial);
+	}
+	Cube->addComponent(cubeRenderer);
+	scene->AddGameObject(Cube);
+
+
+#pragma endregion
 
 	return scene;
 }
