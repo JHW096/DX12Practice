@@ -19,15 +19,19 @@ void RootSignature::CreateRootSignature()
 	CD3DX12_DESCRIPTOR_RANGE ranges[] =
 	{
 		//CBV_REGISTER_COUNT = 5, 0 b0~b4까지 총 5개 사용
-		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, 0), //b0부터 사용
+		//light Class 추가 이후 b1~b4 / b0
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT - 1, 1), 
 		//texture를 위해 추가
 		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, SRV_REGISTER_COUNT, 0) //b0부터 사용
 	};
 
 
-	CD3DX12_ROOT_PARAMETER param[1];
+	CD3DX12_ROOT_PARAMETER param[2];
 	//배열의 카운트와 범위
-	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
+	//전역으로 사용할 친구 = b0
+	param[0].InitAsConstantBufferView(static_cast<uint32>(CBV_REGISTER::b0)); 
+	//테이블 사용
+	param[1].InitAsDescriptorTable(_countof(ranges), ranges);
 
 	//None Table ConstantBuffer
 	//param[0].InitAsConstantBufferView(0); // b0 -> root CBV1

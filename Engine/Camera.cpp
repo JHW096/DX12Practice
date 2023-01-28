@@ -47,10 +47,10 @@ void Camera::Render()
 
 	for (auto& gameobject : gameObjects)
 	{
-		if (gameobject->getMeshRenderer() == nullptr)
+		if (gameobject->GetMeshRenderer() == nullptr)
 			continue;
 
-		gameobject->getMeshRenderer()->Render();
+		gameobject->GetMeshRenderer()->Render();
 
 	}
 

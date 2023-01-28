@@ -107,6 +107,14 @@ void ConstantBuffer::PushData(void* buffer, uint32 size)
 	_currentIndex++;
 }
 
+void ConstantBuffer::SetGlobalData(void* buffer, uint32 size)
+{
+	//currentIndex를 활용하지 않고 mappedbuffer0번을 무조건 사용
+	assert(_elementSize == ((size + 255) & ~255));
+	::memcpy(&_mappedBuffer[0], buffer, size);
+	CMD_LIST->SetGraphicsRootConstantBufferView(0, getGpuVirtualAddress(0));
+}
+
 D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
 {
 	//gpubuffer의 주소를 받아와서 몇 번째 주소인지 알려주며 return

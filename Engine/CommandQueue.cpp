@@ -83,7 +83,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	//어떤 버퍼에 그릴 것인가?
 	//backbuffer를 알려줌
 	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _swapChain->getBackRTV();
-	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr); //테스트겸 lightblue
+	_cmdList->ClearRenderTargetView(backBufferView, Colors::Black, 0, nullptr); //테스트겸 lightblue
 
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView = GEngine->getDepthStencilBuffer()->getDSVCpuHandle();
 	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, &depthStencilView);

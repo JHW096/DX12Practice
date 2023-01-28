@@ -26,7 +26,7 @@ public:
 	const Vec3& GetLocalScale() { return _localScale; }
 
 	const Matrix& GetLocalToWorldMatrix() { return _matWorld; }
-	const Vec3& GetWolrdPosition() { return _matWorld.Translation(); }
+	Vec3 GetWorldPosition() { return _matWorld.Translation(); }
 
 	
 	//standard, world coordinate 

@@ -6,6 +6,7 @@ enum class COMPONENT_TYPE : uint8
 	TRANSFORM,		//여러개를 가질 수 없다.
 	MESH_RENDERER,	//여러개를 가질 수 없다.
 	CAMERA,
+	LIGHT,
 	//...
 	MONO_BEHAVIOUR,	//여러개 가질 수 있다.
 	END,
