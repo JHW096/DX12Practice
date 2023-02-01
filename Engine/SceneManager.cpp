@@ -165,6 +165,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	{
 		shared_ptr<GameObject> skyBox = make_shared<GameObject>();
 		skyBox->addComponent(make_shared<Transform>());
+		skyBox->SetCheckFrustum(false);
 		shared_ptr<MeshRenderer> skyBoxMeshRenderer = make_shared<MeshRenderer>();
 		{
 			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
