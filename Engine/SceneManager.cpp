@@ -43,6 +43,27 @@ void SceneManager::LoadScene(wstring scenName)
 	_activeScene->Start();
 }
 
+void SceneManager::SetLayerName(uint8 index, const wstring& name)
+{
+	const wstring& prevName = _layerNames[index];
+	_layerIndex.erase(prevName);
+
+	_layerNames[index] = name;
+	_layerIndex[name] = index;
+}
+
+uint8 SceneManager::LayerNameToIndex(const wstring& name)
+{
+	auto findIt = _layerIndex.find(name);
+	if (findIt == _layerIndex.end())
+	{
+		return 0;
+	}
+
+	return findIt->second;
+}
+
+
 shared_ptr<Scene> SceneManager::LoadTestScene()
 {
 
