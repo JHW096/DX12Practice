@@ -176,7 +176,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 			shared_ptr<Shader> skyBoxShader = make_shared<Shader>();
 			shared_ptr<Texture> skyBoxTexture = make_shared<Texture>();
 			skyBoxShader->Init(
-				L"..\\Resource\\Shader\\skybox.hlsli",
+				L"..\\Resource\\Shader\\skybox.fx",
 				{ RASTERIZER_TYPE::CULL_NONE, DEPTH_STENCIL_TYPE::LESS_EQUAL }
 			);
 			skyBoxTexture->Init(L"..\\Resource\\Texture\\Sky01.jpg");
@@ -206,7 +206,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		shared_ptr<Shader> cubeShader = make_shared<Shader>();
 		shared_ptr<Texture> cubeTexture = make_shared<Texture>();
 		shared_ptr<Texture> cubeTexture2 = make_shared<Texture>();
-		cubeShader->Init(L"..\\Resource\\Shader\\default.hlsli");
+		cubeShader->Init(L"..\\Resource\\Shader\\forward.fx");
 		cubeTexture->Init(L"..\\Resource\\Texture\\Leather.jpg");
 		cubeTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
 		shared_ptr<Material> cubeMaterial = make_shared<Material>();
