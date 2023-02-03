@@ -15,6 +15,14 @@ private:
 	using KeyObjMap = std::map<wstring/*key*/, shared_ptr<Object>>;
 	array<KeyObjMap, OBJECT_TYPE_COUNT> _resources;
 
+private:
+
+	void CreateDefaultShader();
+
+public:
+
+	void Init();
+
 public:
 
 	template<typename T>

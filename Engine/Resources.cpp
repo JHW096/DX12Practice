@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Resources.h"
 
+void Resources::Init()
+{
+	CreateDefaultShader();
+}
 
 shared_ptr<Mesh> Resources::LoadCubeMesh()
 {
@@ -189,4 +193,33 @@ shared_ptr<Mesh> Resources::LoadSphereMesh()
 	Add(L"Sphere", mesh);
 
 	return mesh;
+}
+
+
+void Resources::CreateDefaultShader()
+{
+	//SkyBox
+	{
+		ShaderInfo info =
+		{
+			RASTERIZER_TYPE::CULL_NONE,
+			DEPTH_STENCIL_TYPE::LESS_EQUAL
+		};
+
+		shared_ptr<Shader> shader = make_shared<Shader>();
+		shader->Init(L"..\\Resource\\Shader\\skybox.fx", info);
+		Add<Shader>(L"Skybox", shader);
+	}
+
+	//Forward
+	{
+		ShaderInfo info =
+		{
+
+		};
+
+		shared_ptr<Shader> shader = make_shared<Shader>();
+		shader->Init(L"..\\Resource\\Shader\\forward.fx", info);
+		Add<Shader>(L"Forward", shader);
+	}
 }

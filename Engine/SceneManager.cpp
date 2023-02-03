@@ -77,6 +77,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 #pragma region Camera
 	{
 		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->SetName(L"Main_Camera");
 		camera->addComponent(make_shared<Transform>());
 		camera->addComponent(make_shared<Camera>());		//near =1, far = 100, fov = 45
 		camera->addComponent(make_shared<TestCameraScript>());
@@ -137,35 +138,36 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 //
 //#pragma endregion
 	
-#pragma region SkyBox
-	{
-		shared_ptr<GameObject> skyBox = make_shared<GameObject>();
-		skyBox->addComponent(make_shared<Transform>());
-		skyBox->SetCheckFrustum(false);
-		shared_ptr<MeshRenderer> skyBoxMeshRenderer = make_shared<MeshRenderer>();
-		{
-			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
-			skyBoxMeshRenderer->setMesh(sphereMesh);
-		}
-		{
-			//high resolution space hdri
-			shared_ptr<Shader> skyBoxShader = make_shared<Shader>();
-			shared_ptr<Texture> skyBoxTexture = make_shared<Texture>();
-			skyBoxShader->Init(
-				L"..\\Resource\\Shader\\skybox.fx",
-				{ RASTERIZER_TYPE::CULL_NONE, DEPTH_STENCIL_TYPE::LESS_EQUAL }
-			);
-			skyBoxTexture->Init(L"..\\Resource\\Texture\\Sky01.jpg");
-			shared_ptr<Material> skyBoxMaterial = make_shared<Material>();
-			skyBoxMaterial->setShader(skyBoxShader);
-			skyBoxMaterial->setTexture(0, skyBoxTexture);
-			//skyBoxMaterial->setTexture(1, skyBoxTexture);
-			skyBoxMeshRenderer->setMaterial(skyBoxMaterial);
-		}
-		skyBox->addComponent(skyBoxMeshRenderer);
-		scene->AddGameObject(skyBox);
-	}
-#pragma endregion
+//Prev to make gameobject
+//#pragma region SkyBox
+//	{
+//		shared_ptr<GameObject> skyBox = make_shared<GameObject>();
+//		skyBox->addComponent(make_shared<Transform>());
+//		skyBox->SetCheckFrustum(false);
+//		shared_ptr<MeshRenderer> skyBoxMeshRenderer = make_shared<MeshRenderer>();
+//		{
+//			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
+//			skyBoxMeshRenderer->setMesh(sphereMesh);
+//		}
+//		{
+//			//high resolution space hdri
+//			shared_ptr<Shader> skyBoxShader = make_shared<Shader>();
+//			shared_ptr<Texture> skyBoxTexture = make_shared<Texture>();
+//			skyBoxShader->Init(
+//				L"..\\Resource\\Shader\\skybox.fx",
+//				{ RASTERIZER_TYPE::CULL_NONE, DEPTH_STENCIL_TYPE::LESS_EQUAL }
+//			);
+//			skyBoxTexture->Init(L"..\\Resource\\Texture\\Sky01.jpg");
+//			shared_ptr<Material> skyBoxMaterial = make_shared<Material>();
+//			skyBoxMaterial->setShader(skyBoxShader);
+//			skyBoxMaterial->setTexture(0, skyBoxTexture);
+//			//skyBoxMaterial->setTexture(1, skyBoxTexture);
+//			skyBoxMeshRenderer->setMaterial(skyBoxMaterial);
+//		}
+//		skyBox->addComponent(skyBoxMeshRenderer);
+//		scene->AddGameObject(skyBox);
+//	}
+//#pragma endregion
 
 #pragma region Cube
 
