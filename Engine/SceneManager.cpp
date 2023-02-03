@@ -66,94 +66,49 @@ uint8 SceneManager::LayerNameToIndex(const wstring& name)
 
 shared_ptr<Scene> SceneManager::LoadTestScene()
 {
+#pragma region LayerMask
+	SetLayerName(0, L"Default");
+	SetLayerName(1, L"UI");
+
+#pragma endregion
 
 	shared_ptr<Scene> scene = make_shared<Scene>();
 
-
-	//TEST Object
-//#pragma region TestObject
-//
-//	shared_ptr<GameObject> gameObject = make_shared<GameObject>();
-//
-//	vector<Vertex> vec(4);
-//
-//	vec[0].pos = Vec3(-0.5f, 0.5f, 0.5f);
-//	vec[0].color = Vec4(1.0f, 0.0f, 0.0f, 1.0f);
-//	vec[0].uv = Vec2(0.0f, 0.0f);
-//
-//	vec[1].pos = Vec3(0.5f, 0.5f, 0.5f);
-//	vec[1].color = Vec4(0.0f, 1.0f, 0.0f, 1.0f);
-//	vec[1].uv = Vec2(1.0f, 0.0f);
-//
-//	vec[2].pos = Vec3(0.5f, -0.5f, 0.5f);
-//	vec[2].color = Vec4(0.0f, 0.0f, 1.0f, 1.0f);
-//	vec[2].uv = Vec2(1.0f, 1.0f);
-//
-//	vec[3].pos = Vec3(-0.5f, -0.5f, 0.5f);
-//	vec[3].color = Vec4(0.0f, 1.0f, 0.0f, 1.0f);
-//	vec[3].uv = Vec2(0.0f, 1.0f);
-//
-//	vector<uint32> indexVec;
-//	{
-//		indexVec.push_back(0);
-//		indexVec.push_back(1);
-//		indexVec.push_back(2);
-//	}
-//	{
-//		indexVec.push_back(0);
-//		indexVec.push_back(2);
-//		indexVec.push_back(3);
-//	}
-//
-//	gameObject->addComponent(make_shared<Transform>());
-//	shared_ptr<Transform> transform = gameObject->getTransform();
-//	transform->SetLocalPosition(Vec3(0.0f, 100.0f, 200.0f));
-//	transform->SetLocalScale(Vec3(100.0f, 100.0f, 1.0f));
-//
-//
-//	//mesh
-//	shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
-//	{
-//		shared_ptr<Mesh> mesh = make_shared<Mesh>();
-//		mesh->Init(vec, indexVec);
-//		meshRenderer->setMesh(mesh);
-//	}
-//
-//	//shader, texture
-//	{
-//		shared_ptr<Shader> shader = make_shared<Shader>();
-//		shared_ptr<Texture> texture = make_shared<Texture>();
-//
-//		shader->Init(L"..\\Resource\\Shader\\default.hlsli");
-//		texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
-//
-//
-//		shared_ptr<Material> material = make_shared<Material>();
-//		material->setShader(shader);
-//		material->setFloat(0, 0.3f);
-//		material->setFloat(1, 0.4f);
-//		material->setFloat(2, 0.3f);
-//		material->setTexture(0, texture);
-//		meshRenderer->setMaterial(material);;
-//	}
-//
-//	gameObject->addComponent(meshRenderer);
-//
-//	scene->AddGameObject(gameObject);
-//
-//#pragma endregion
-
 #pragma region Camera
-
-	shared_ptr<GameObject> camera = make_shared<GameObject>();
-	camera->addComponent(make_shared<Transform>());
-	camera->addComponent(make_shared<Camera>());		//near =1, far = 100, fov = 45
-	camera->addComponent(make_shared<TestCameraScript>());
-
-	camera->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 0.0f));
-	scene->AddGameObject(camera);
+	{
+		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->addComponent(make_shared<Transform>());
+		camera->addComponent(make_shared<Camera>());		//near =1, far = 100, fov = 45
+		camera->addComponent(make_shared<TestCameraScript>());
+		//UI Culling
+		uint8 layerIndex = GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI");
+		camera->GetCamera()->SetCullingMaskLayerOnOff(layerIndex, true);
+		//StartPosition
+		camera->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 0.0f));
+		scene->AddGameObject(camera);
+	}
 	
 #pragma endregion
+
+#pragma region UI_Camera
+	{
+		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->SetName(L"Orthographic_Camera");
+		camera->addComponent(make_shared<Transform>());
+		camera->addComponent(make_shared<Camera>());
+		//Start Position
+		camera->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 0.0f));
+		//직교 투영 카메라
+		camera->GetCamera()->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);
+		//culling
+		uint8 layerIndex = GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI");
+		camera->GetCamera()->SetCullingMaskAll();
+		camera->GetCamera()->SetCullingMaskLayerOnOff(layerIndex, false);
+		scene->AddGameObject(camera);
+	}
+
+#pragma endregion
+
 
 //#pragma region Sphere
 //	{
