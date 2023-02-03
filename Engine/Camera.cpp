@@ -26,31 +26,40 @@ void Camera::FinalUpdate()
 	float width = static_cast<float>(GEngine->getWindow().width);
 	float height = static_cast<float>(GEngine->getWindow().height);
 
-	if (_type == PROJECTION_TYPE::PERSPECTIVE)
+	if (_type == PROJECTION_TYPE::PERSPECTIVE) //원근 투영
 	{
 		_matProjection = ::XMMatrixPerspectiveFovLH(_fov, width / height, _near, _far);
 	}
-	else
+	else //Orthographic 직교투영 보통 UI에 사용
 	{
 		_matProjection = ::XMMatrixOrthographicLH(width * _scale, height * _scale, _near, _far);
 	}
-
-	S_MatView = _matView;
-	S_MatProjection = _matProjection; 
 
 	_frustum.FinalUpdate();
 }
 
 void Camera::Render()
 {
+	S_MatView = _matView;
+	S_MatProjection = _matProjection;
+
 	shared_ptr<Scene> scene = GET_SINGLE(SceneManager)->getActiveScene();
 
 	const vector<shared_ptr<GameObject>>& gameObjects = scene->GetGameObjects();
 
 	for (auto& gameobject : gameObjects)
 	{
+		//MeshRenderer가 없는지
 		if (gameobject->GetMeshRenderer() == nullptr)
+		{
 			continue;
+		}
+
+		//Cull된 대상인지
+		if (IsCulled(gameobject->GetLayerIndex()))
+		{
+			continue;
+		}
 
 		if (gameobject->GetCheckFrustum())
 		{
