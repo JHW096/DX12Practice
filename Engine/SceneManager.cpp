@@ -169,37 +169,65 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	}
 #pragma endregion
 
+#pragma region Sphere
 
-
-#pragma region Cube
-
-	shared_ptr<GameObject> Cube = make_shared<GameObject>();
-	Cube->addComponent(make_shared<Transform>());
-	Cube->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
-	Cube->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
-	shared_ptr<MeshRenderer> cubeRenderer = make_shared<MeshRenderer>();
+	shared_ptr<GameObject> sphere = make_shared<GameObject>();
+	sphere->addComponent(make_shared<Transform>());
+	sphere->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
+	sphere->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
+	shared_ptr<MeshRenderer> sphereRenderer = make_shared<MeshRenderer>();
 	{
-		shared_ptr<Mesh> cubeMesh = GET_SINGLE(Resources)->LoadCubeMesh();
-		cubeRenderer->setMesh(cubeMesh);
+		shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
+		sphereRenderer->setMesh(sphereMesh);
 	}
 	{
-		shared_ptr<Shader> cubeShader = make_shared<Shader>();
-		shared_ptr<Texture> cubeTexture = make_shared<Texture>();
-		shared_ptr<Texture> cubeTexture2 = make_shared<Texture>();
-		cubeShader->Init(L"..\\Resource\\Shader\\forward.fx");
-		cubeTexture->Init(L"..\\Resource\\Texture\\Leather.jpg");
-		cubeTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
-		shared_ptr<Material> cubeMaterial = make_shared<Material>();
-		cubeMaterial->setShader(cubeShader);
-		cubeMaterial->setTexture(0, cubeTexture);
-		cubeMaterial->setTexture(1, cubeTexture2);
-		cubeRenderer->setMaterial(cubeMaterial);
+		shared_ptr<Shader> sphereShader = make_shared<Shader>();
+		shared_ptr<Texture> sphereTexture1 = make_shared<Texture>();
+		shared_ptr<Texture> sphereTexture2 = make_shared<Texture>();
+		sphereShader->Init(L"..\\Resource\\Shader\\forward.fx");
+		sphereTexture1->Init(L"..\\Resource\\Texture\\Leather.jpg");
+		sphereTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
+		shared_ptr<Material> sphereMaterial = make_shared<Material>();
+		sphereMaterial->setShader(sphereShader);
+		sphereMaterial->setTexture(0, sphereTexture1);
+		sphereMaterial->setTexture(1, sphereTexture2);
+		sphereRenderer->setMaterial(sphereMaterial);
 	}
-	Cube->addComponent(cubeRenderer);
-	scene->AddGameObject(Cube);
-
+	sphere->addComponent(sphereRenderer);
+	scene->AddGameObject(sphere);
 
 #pragma endregion
+
+
+//#pragma region Cube
+//
+//	shared_ptr<GameObject> Cube = make_shared<GameObject>();
+//	Cube->addComponent(make_shared<Transform>());
+//	Cube->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
+//	Cube->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
+//	shared_ptr<MeshRenderer> cubeRenderer = make_shared<MeshRenderer>();
+//	{
+//		shared_ptr<Mesh> cubeMesh = GET_SINGLE(Resources)->LoadCubeMesh();
+//		cubeRenderer->setMesh(cubeMesh);
+//	}
+//	{
+//		shared_ptr<Shader> cubeShader = make_shared<Shader>();
+//		shared_ptr<Texture> cubeTexture = make_shared<Texture>();
+//		shared_ptr<Texture> cubeTexture2 = make_shared<Texture>();
+//		cubeShader->Init(L"..\\Resource\\Shader\\forward.fx");
+//		cubeTexture->Init(L"..\\Resource\\Texture\\Leather.jpg");
+//		cubeTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
+//		shared_ptr<Material> cubeMaterial = make_shared<Material>();
+//		cubeMaterial->setShader(cubeShader);
+//		cubeMaterial->setTexture(0, cubeTexture);
+//		cubeMaterial->setTexture(1, cubeTexture2);
+//		cubeRenderer->setMaterial(cubeMaterial);
+//	}
+//	Cube->addComponent(cubeRenderer);
+//	scene->AddGameObject(Cube);
+//
+//
+//#pragma endregion
 
 #pragma region Green Directional Light 
 	{
