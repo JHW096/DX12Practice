@@ -138,6 +138,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 //
 //#pragma endregion
 	
+
 //Prev to make gameobject
 #pragma region SkyBox
 	{
@@ -151,13 +152,13 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		}
 		{
 			//high resolution space hdri
-			shared_ptr<Shader> skyBoxShader = make_shared<Shader>();
-			shared_ptr<Texture> skyBoxTexture = make_shared<Texture>();
-			skyBoxShader->Init(
+			shared_ptr<Shader> skyBoxShader = GET_SINGLE(Resources)->Get<Shader>(L"Skybox");
+			shared_ptr<Texture> skyBoxTexture = GET_SINGLE(Resources)->Load<Texture>(L"Sky01", L"..\\Resource\\Texture\\Sky01.jpg");
+			/*skyBoxShader->Init(
 				L"..\\Resource\\Shader\\skybox.fx",
 				{ RASTERIZER_TYPE::CULL_NONE, DEPTH_STENCIL_TYPE::LESS_EQUAL }
-			);
-			skyBoxTexture->Init(L"..\\Resource\\Texture\\Sky01.jpg");
+			);*/
+			/*skyBoxTexture->Init(L"..\\Resource\\Texture\\Sky01.jpg");*/
 			shared_ptr<Material> skyBoxMaterial = make_shared<Material>();
 			skyBoxMaterial->setShader(skyBoxShader);
 			skyBoxMaterial->setTexture(0, skyBoxTexture);
@@ -185,8 +186,8 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		shared_ptr<Texture> sphereTexture1 = make_shared<Texture>();
 		shared_ptr<Texture> sphereTexture2 = make_shared<Texture>();
 		sphereShader->Init(L"..\\Resource\\Shader\\forward.fx");
-		sphereTexture1->Init(L"..\\Resource\\Texture\\Leather.jpg");
-		sphereTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
+		sphereTexture1->Load(L"..\\Resource\\Texture\\Leather.jpg");
+		sphereTexture2->Load(L"..\\Resource\\Texture\\Leather_Normal.jpg");
 		shared_ptr<Material> sphereMaterial = make_shared<Material>();
 		sphereMaterial->setShader(sphereShader);
 		sphereMaterial->setTexture(0, sphereTexture1);
