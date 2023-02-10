@@ -109,34 +109,6 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	}
 
 #pragma endregion
-
-
-//#pragma region Sphere
-//	{
-//		shared_ptr<GameObject> sphere = make_shared<GameObject>();
-//		sphere->addComponent(make_shared<Transform>());
-//		sphere->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
-//		sphere->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
-//		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
-//		{
-//			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
-//			meshRenderer->setMesh(sphereMesh);
-//		}
-//		{
-//			shared_ptr<Shader> shader = make_shared<Shader>();
-//			shared_ptr<Texture> texture = make_shared<Texture>();
-//			shader->Init(L"..\\Resource\\Shader\\default.hlsli");
-//			texture->Init(L"..\\Resource\\Texture\\Gun.jpg");
-//			shared_ptr<Material> material = make_shared<Material>();
-//			material->setShader(shader);
-//			material->setTexture(0, texture);
-//			meshRenderer->setMaterial(material);
-//		}
-//		sphere->addComponent(meshRenderer);
-//		scene->AddGameObject(sphere);
-//	}
-//
-//#pragma endregion
 	
 
 //Prev to make gameobject
@@ -229,6 +201,32 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 //
 //
 //#pragma endregion
+
+#pragma region UI_Test
+	{
+		shared_ptr<GameObject> test = make_shared<GameObject>();
+		test->SetLayerIndex(GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI"));
+		test->addComponent(make_shared<Transform>());
+		test->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
+		test->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 500.0f));
+		shared_ptr<MeshRenderer> testRenderer = make_shared<MeshRenderer>();
+		{
+			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectangleMesh();
+			testRenderer->setMesh(mesh);
+		}
+		{
+			shared_ptr<Shader> testShader = GET_SINGLE(Resources)->Get<Shader>(L"Forward");
+			shared_ptr<Texture> testTexture = GET_SINGLE(Resources)->Load<Texture>(L"Leather",
+				L"..\\Resource\\Texture\\Leather.jpg");
+			shared_ptr<Material> testMaterial = make_shared<Material>();
+			testMaterial->setShader(testShader);
+			testMaterial->setTexture(0, testTexture);
+			testRenderer->setMaterial(testMaterial);
+		}
+		test->addComponent(testRenderer);
+		scene->AddGameObject(test);
+	}
+#pragma endregion
 
 #pragma region Green Directional Light 
 	{
