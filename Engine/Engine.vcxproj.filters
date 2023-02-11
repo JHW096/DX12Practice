@@ -227,5 +227,8 @@
     <FxCompile Include="..\Resource\Shader\forward.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Resource\Shader\deferred.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
