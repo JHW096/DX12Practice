@@ -10,7 +10,11 @@ private:
 
 	//View
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;	
-	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = { };
+	ComPtr<ID3D12DescriptorHeap>	_rtvHeap;
+	ComPtr<ID3D12DescriptorHeap>	_dsvHeap;
+
+private:
+	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHeapBegin = { };
 
 
 public:
@@ -22,11 +26,23 @@ public:
 
 	virtual void Load(const wstring& path) override;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE getCpuHandle() { return _srvHandle; }
-
 public:
 
-	void CreateTexture(const wstring& path);
-	void CreateView();
+	//처음부터 다 만드는 case
+	void Create(DXGI_FORMAT format, uint32 width, uint32 height,
+		const D3D12_HEAP_PROPERTIES& heapProperty, D3D12_HEAP_FLAGS heapFlags,
+		D3D12_RESOURCE_FLAGS resFlags, Vec4 clearColor = Vec4());
+
+	//Resource가 있는 상태에서 textrue을 만드는 case
+	//SwapChian같은 경우 : 내부 자체에 버퍼 리소스가 있고 Getbuffer를통해 가져옴.
+	void CreateFromResource(ComPtr<ID3D12Resource> tex2D);
+
+public:
+	ComPtr<ID3D12Resource> GetTex2D() { return _tex2D; }
+	ComPtr<ID3D12DescriptorHeap> GetSRV() { return _srvHeap; }
+	ComPtr<ID3D12DescriptorHeap> GetRTV() { return _rtvHeap; }
+	ComPtr<ID3D12DescriptorHeap> GetDSV() { return _dsvHeap; }
+
+	D3D12_CPU_DESCRIPTOR_HANDLE GetSRVHandle() { return _srvHeapBegin; }
 };
 

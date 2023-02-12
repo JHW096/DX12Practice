@@ -9,7 +9,7 @@
 #include "ConstantBuffer.h"
 #include "TableDescriptorHeap.h"
 #include "Texture.h"
-#include "DepthStencilBuffer.h"
+#include "RenderTargetGroup.h"
 
 class Engine
 {
@@ -26,10 +26,9 @@ private:
 	shared_ptr<RootSignature> _rootSignature = make_shared<RootSignature>();
 	shared_ptr<ConstantBuffer> _cb = make_shared<ConstantBuffer>();
 	shared_ptr<TableDescriptorHeap> _tableDescHeap = make_shared<TableDescriptorHeap>();
-	shared_ptr<DepthStencilBuffer> _depthStencilBuffer = make_shared<DepthStencilBuffer>();
 	
 	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
-
+	array<shared_ptr<RenderTargetGroup>, RENDER_TARGET_GROUP_COUNT> _rtGroups;
 	//move static Fn
 	/*shared_ptr<Input> _input = make_shared<Input>();
 	shared_ptr<Timer> _timer = make_shared<Timer>();*/
@@ -46,7 +45,6 @@ public:
 	shared_ptr<RootSignature> getRootSignature()			{ return _rootSignature; }
 	//shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
 	shared_ptr<TableDescriptorHeap> getTableDescHeap()		{ return _tableDescHeap;  }
-	shared_ptr<DepthStencilBuffer> getDepthStencilBuffer()	{ return _depthStencilBuffer; }
 
 	//move static function
 	/*shared_ptr<Input> getInput()							{ return _input; }
@@ -55,6 +53,11 @@ public:
 	shared_ptr<ConstantBuffer> getConstantBuffer(CONSTANT_BUFFER_TYPE type) 
 	{
 		return _constantBuffers[static_cast<uint8>(type)];
+	}
+
+	shared_ptr<RenderTargetGroup> GetRTGroup(RENDER_TARGET_GROUP_TYPE type)
+	{
+		return _rtGroups[static_cast<uint8>(type)];
 	}
 
 public:
@@ -78,6 +81,8 @@ private:
 
 	void ShowFPS();
 	void CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count);
+	void CreateRenderTargetGroups();
+
 };
 
 

@@ -28,6 +28,10 @@ private:
 //Layer m_var
 	uint32 _cullingMask = 0;
 
+//Render Temp var
+	vector<shared_ptr<GameObject>> _vecDeferred;
+	vector<shared_ptr<GameObject>> _vecForward;
+
 public:
 	//TEMP
 	static Matrix S_MatView;
@@ -40,11 +44,15 @@ public:
 public:
 
 	virtual void FinalUpdate() override;
-	void Render();
+
 
 //Frustum Fn
-
 	void SetProjectionType(PROJECTION_TYPE type) { _type = type; }
+
+//part of Shader 
+	void SortGameObject();
+	void Render_Deferred();
+	void Render_Forward();
 
 //Layer Fu
 public:

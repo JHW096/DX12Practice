@@ -63,6 +63,7 @@ PS_OUT PS_Main(VS_OUT input)
         viewNormal = normalize(mul(tangentSpaceNormal, matTBN));
     }
 
+    //중간 과정을 저장하고 return
     output.position = float4(input.viewPos.xyz, 0.0f);
     output.normal = float4(viewNormal.xyz, 0.0f);
     output.color = color; 

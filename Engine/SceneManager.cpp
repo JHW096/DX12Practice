@@ -154,12 +154,11 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		sphereRenderer->setMesh(sphereMesh);
 	}
 	{
-		shared_ptr<Shader> sphereShader = make_shared<Shader>();
-		shared_ptr<Texture> sphereTexture1 = make_shared<Texture>();
-		shared_ptr<Texture> sphereTexture2 = make_shared<Texture>();
-		sphereShader->Init(L"..\\Resource\\Shader\\forward.fx");
-		sphereTexture1->Load(L"..\\Resource\\Texture\\Leather.jpg");
-		sphereTexture2->Load(L"..\\Resource\\Texture\\Leather_Normal.jpg");
+		shared_ptr<Shader> sphereShader = GET_SINGLE(Resources)->Get<Shader>(L"Deferred");
+		shared_ptr<Texture> sphereTexture1 = 
+			GET_SINGLE(Resources)->Load<Texture>(L"Leather", L"..\\Resource\\Texture\\Leather.jpg");
+		shared_ptr<Texture> sphereTexture2 = 
+			GET_SINGLE(Resources)->Load<Texture>(L"Leather_Normal", L"..\\Resource\\Texture\\Leather_Normal.jpg");
 		shared_ptr<Material> sphereMaterial = make_shared<Material>();
 		sphereMaterial->setShader(sphereShader);
 		sphereMaterial->setTexture(0, sphereTexture1);
@@ -203,12 +202,13 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 //#pragma endregion
 
 #pragma region UI_Test
+	for(int32 i = 0; i < 3; i++)
 	{
 		shared_ptr<GameObject> test = make_shared<GameObject>();
 		test->SetLayerIndex(GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI"));
 		test->addComponent(make_shared<Transform>());
 		test->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
-		test->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 500.0f));
+		test->GetTransform()->SetLocalPosition(Vec3(-350.0f + (i * 160), 250.0f, 500.0f));
 		shared_ptr<MeshRenderer> testRenderer = make_shared<MeshRenderer>();
 		{
 			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectangleMesh();
@@ -216,8 +216,8 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		}
 		{
 			shared_ptr<Shader> testShader = GET_SINGLE(Resources)->Get<Shader>(L"Forward");
-			shared_ptr<Texture> testTexture = GET_SINGLE(Resources)->Load<Texture>(L"Leather",
-				L"..\\Resource\\Texture\\Leather.jpg");
+			shared_ptr<Texture> testTexture =
+				GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::G_BUFFER)->GetRTTexture(i);
 			shared_ptr<Material> testMaterial = make_shared<Material>();
 			testMaterial->setShader(testShader);
 			testMaterial->setTexture(0, testTexture);

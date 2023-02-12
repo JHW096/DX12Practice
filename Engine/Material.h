@@ -38,7 +38,7 @@ public:
 
 public:
 
-	shared_ptr<Shader> getShader() { return _shader; }
+	shared_ptr<Shader> GetShader() { return _shader; }
 
 	void setShader(shared_ptr<Shader> shader) { _shader = shader; }
 	void setInt(uint8 index, int32 value) { _params.setInt(index, value); }
