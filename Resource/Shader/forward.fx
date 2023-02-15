@@ -96,12 +96,12 @@ VS_TEX_OUT VS_Tex(VS_TEX_IN input)
     output.pos = mul(float4(input.pos, 1.0f), g_matWVP);
     output.uv = input.uv;
 
-    return outout;
+    return output;
 }
 
 float4 PS_Tex(VS_TEX_OUT input) : SV_Target
 {
-    float4 color = float4(1.0f, 1.0f, 1,0f, 1.0f);
+    float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
     if (g_tex_on_0)
     {
         color = g_tex_0.Sample(g_sam_0, input.uv);
