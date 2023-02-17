@@ -49,7 +49,7 @@ public:
 	bool isVaild() { return _gameObject.expired() == false; } //게임오브젝트가 소멸되었는지 체크
 
 	shared_ptr<GameObject> getGameObject();
-	shared_ptr<Transform> getTransform();
+	shared_ptr<Transform> GetTransform();
 
 private:
 	//꼭 게임 오브젝트에서만 사용하도록.

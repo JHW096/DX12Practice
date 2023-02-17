@@ -43,7 +43,7 @@ void Shader::Init(const wstring& path, ShaderInfo info, const string& vs, const 
 
 	switch (info.shaderType)
 	{
-		case SHADER_TYPE::DEFFERED:
+		case SHADER_TYPE::DEFERRED:
 			_pipelineDesc.NumRenderTargets = RENDER_TARGET_G_BUFFER_GROUP_MEMBER_COUNT;
 			_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R32G32B32A32_FLOAT; //position
 			_pipelineDesc.RTVFormats[1] = DXGI_FORMAT_R32G32B32A32_FLOAT; //normal

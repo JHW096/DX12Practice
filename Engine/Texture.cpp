@@ -119,7 +119,7 @@ void Texture::Create(DXGI_FORMAT format, uint32 width, uint32 height, const D3D1
 	//RenderTarget용도 Texture인가?
 	else if (resFlags & D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET)
 	{
-		resourceStates = D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_RENDER_TARGET;
+		resourceStates = D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_COMMON;
 		float arrFloat[4] = { clearColor.x, clearColor.y , clearColor.z, clearColor.w };
 		optimizedClearValue = CD3DX12_CLEAR_VALUE(format, arrFloat);
 	}

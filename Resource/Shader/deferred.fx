@@ -47,26 +47,24 @@ PS_OUT PS_Main(VS_OUT input)
 {
     PS_OUT output = (PS_OUT)0;
 
-    float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+    float4 color = float4(1.f, 1.f, 1.f, 1.f);
     if (g_tex_on_0)
-    {
         color = g_tex_0.Sample(g_sam_0, input.uv);
-    }
 
     float3 viewNormal = input.viewNormal;
     if (g_tex_on_1)
     {
-        //[0, 255] -> [0, 1]
+        // [0,255] 범위에서 [0,1]로 변환
         float3 tangentSpaceNormal = g_tex_1.Sample(g_sam_0, input.uv).xyz;
-        tangentSpaceNormal = (tangentSpaceNormal - 0.5f) * 2.0f;
+        // [0,1] 범위에서 [-1,1]로 변환
+        tangentSpaceNormal = (tangentSpaceNormal - 0.5f) * 2.f;
         float3x3 matTBN = { input.viewTangent, input.viewBinormal, input.viewNormal };
         viewNormal = normalize(mul(tangentSpaceNormal, matTBN));
     }
 
-    //중간 과정을 저장하고 return
-    output.position = float4(input.viewPos.xyz, 0.0f);
-    output.normal = float4(viewNormal.xyz, 0.0f);
-    output.color = color; 
+    output.position = float4(input.viewPos.xyz, 0.f);
+    output.normal = float4(viewNormal.xyz, 0.f);
+    output.color = color;
 
     return output;
 }

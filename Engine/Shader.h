@@ -3,7 +3,7 @@
 
 enum class SHADER_TYPE : uint8
 {
-	DEFFERED,
+	DEFERRED,
 	FORWARD,
 	LIGHTING,
 };

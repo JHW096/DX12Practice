@@ -3,7 +3,7 @@
 
 enum class LIGHT_TYPE : uint8
 {
-	DIRECT_LIGHT,
+	DIRECTIONAL_LIGHT,
 	POINT_LIGHT,
 	SPOT_LIGHT,
 };
@@ -39,12 +39,17 @@ private:
 
 	LightInfo _lightInfo{ };
 
+	int8 _lightIndex = -1;
+	shared_ptr<class Mesh> _volumeMesh;
+	shared_ptr<class Material> _lightMaterial;
+
 public:
 
 	Light();
 	virtual ~Light();
 
 	virtual void FinalUpdate() override;
+	void Render();
 
 public:
 
@@ -56,9 +61,10 @@ public:
 	void SetAmbient(const Vec3& ambient) { _lightInfo.color.ambient = ambient; }
 	void SetSpecular(const Vec3& specular) { _lightInfo.color.specular = specular; }
 
-	void SetLightType(LIGHT_TYPE type) { _lightInfo.lightType = static_cast<uint32>(type); }
+	void SetLightType(LIGHT_TYPE type);
 	void SetLightRagne(float range) { _lightInfo.range = range; }
 	void SetLightAngle(float angle) { _lightInfo.angle = angle; }
 
+	void SetLightIndex(uint8 index) { _lightIndex = index; }
 };
 

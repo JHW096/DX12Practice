@@ -16,54 +16,54 @@ TestCameraScript::~TestCameraScript()
 
 void TestCameraScript::LateUpdate()
 {
-	Vec3 pos = getTransform()->GetLocalPosition();
+	Vec3 pos = GetTransform()->GetLocalPosition();
 
 	if (INPUT->GetButton(KEY_TYPE::W))
 	{
-		pos += getTransform()->GetLook() * _speed * DELTA_TIME;
+		pos += GetTransform()->GetLook() * _speed * DELTA_TIME;
 	}
 	if (INPUT->GetButton(KEY_TYPE::S))
 	{
-		pos -= getTransform()->GetLook() * _speed * DELTA_TIME;
+		pos -= GetTransform()->GetLook() * _speed * DELTA_TIME;
 	}
 	if (INPUT->GetButton(KEY_TYPE::A))
 	{
-		pos -= getTransform()->GetRight() * _speed * DELTA_TIME;
+		pos -= GetTransform()->GetRight() * _speed * DELTA_TIME;
 	}
 	if (INPUT->GetButton(KEY_TYPE::D))
 	{
-		pos += getTransform()->GetRight() * _speed * DELTA_TIME;
+		pos += GetTransform()->GetRight() * _speed * DELTA_TIME;
 	}
 
 	if (INPUT->GetButton(KEY_TYPE::Q))
 	{
-		Vec3 rotation = getTransform()->GetLocalRotation();
+		Vec3 rotation = GetTransform()->GetLocalRotation();
 		rotation.x += DELTA_TIME * 0.5f;
-		getTransform()->SetLocalRotation(rotation);
+		GetTransform()->SetLocalRotation(rotation);
 	}
 
 	if (INPUT->GetButton(KEY_TYPE::E))
 	{
-		Vec3 rotation = getTransform()->GetLocalRotation();
+		Vec3 rotation = GetTransform()->GetLocalRotation();
 		rotation.x -= DELTA_TIME * 0.5f;
-		getTransform()->SetLocalRotation(rotation);
+		GetTransform()->SetLocalRotation(rotation);
 	}
 
 	if (INPUT->GetButton(KEY_TYPE::Z))
 	{
-		Vec3 rotation = getTransform()->GetLocalRotation();
+		Vec3 rotation = GetTransform()->GetLocalRotation();
 		rotation.y += DELTA_TIME * 0.5f;
-		getTransform()->SetLocalRotation(rotation);
+		GetTransform()->SetLocalRotation(rotation);
 	}
 
 	if (INPUT->GetButton(KEY_TYPE::C))
 	{
-		Vec3 rotation = getTransform()->GetLocalRotation();
+		Vec3 rotation = GetTransform()->GetLocalRotation();
 		rotation.y -= DELTA_TIME * 0.5f;
-		getTransform()->SetLocalRotation(rotation);
+		GetTransform()->SetLocalRotation(rotation);
 	}
 
 
 
-	getTransform()->SetLocalPosition(pos);
+	GetTransform()->SetLocalPosition(pos);
 }

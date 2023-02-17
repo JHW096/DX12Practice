@@ -23,7 +23,7 @@ Camera::~Camera()
 void Camera::FinalUpdate()
 {
 	//invert(역행렬) 찍고 있는 카메라의 월드 행렬에 역행렬을 해주면 뷰변환행렬
-	_matView = getTransform()->GetLocalToWorldMatrix().Invert();
+	_matView = GetTransform()->GetLocalToWorldMatrix().Invert();
 
 	float width = static_cast<float>(GEngine->getWindow().width);
 	float height = static_cast<float>(GEngine->getWindow().height);
@@ -74,7 +74,7 @@ void Camera::SortGameObject()
 		SHADER_TYPE shaderType = gameObject->GetMeshRenderer()->GetMaterial()->GetShader()->GetShaderType();
 		switch (shaderType)
 		{
-			case SHADER_TYPE::DEFFERED:
+			case SHADER_TYPE::DEFERRED:
 				_vecDeferred.push_back(gameObject);
 				break;
 			case SHADER_TYPE::FORWARD:
