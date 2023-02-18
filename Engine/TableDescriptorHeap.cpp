@@ -44,7 +44,7 @@ void TableDescriptorHeap::CommitTable()
 {
 	D3D12_GPU_DESCRIPTOR_HANDLE handle = _descHeap->GetGPUDescriptorHandleForHeapStart();
 	handle.ptr += _currentGroupIndex * _groupSize;
-	CMD_LIST->SetGraphicsRootDescriptorTable(1, handle);
+	GRAPHICS_CMD_LIST->SetGraphicsRootDescriptorTable(1, handle);
 
 	_currentGroupIndex++;
 }

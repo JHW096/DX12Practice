@@ -24,8 +24,10 @@ void Engine::Init(const WindowInfo& info)
 	_scissorRect = CD3DX12_RECT(0, 0, info.width, info.height);
 
 	_device->Init();
-	_cmdQueue->Init(_device->getDeivce(), _swapChain);
-	_swapChain->Init(info, _device->getDeivce(), _device->getDXGI(), _cmdQueue->getCmdQueue());
+	_graphicsCmdQueue->Init(_device->GetDeivce(), _swapChain);
+	_computeCmdQueue->Init(_device->GetDeivce());
+
+	_swapChain->Init(info, _device->GetDeivce(), _device->getDXGI(), _graphicsCmdQueue->GetCmdQueue());
 	_rootSignature->Init();
 	//_cb->Init(sizeof(Transform), 256); ´ÜÀÏ contantbuffer
 	_tableDescHeap->Init(256);
@@ -70,12 +72,12 @@ void Engine::Render()
 
 void Engine::RenderBegin()
 {
-	_cmdQueue->RenderBegin(&_viewport, &_scissorRect);
+	_graphicsCmdQueue->RenderBegin(&_viewport, &_scissorRect);
 }
 
 void Engine::RenderEnd()
 {
-	_cmdQueue->RenderEnd();
+	_graphicsCmdQueue->RenderEnd();
 }
 
 void Engine::ResizeWindow(int32 width, int32 height)

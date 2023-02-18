@@ -55,7 +55,7 @@ void Scene::Render()
 	PushLightData();
 
 	//SwapChain Group 초기화
-	uint8 backIndex = GEngine->getSwapChain()->GetBackBufferIndex();
+	uint8 backIndex = GEngine->GetSwapChain()->GetBackBufferIndex();
 	GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::SWAP_CHAIN)->ClearRenderTargetView(backIndex);
 
 	//Deferred Group 초기화
@@ -107,7 +107,7 @@ void Scene::RenderLights()
 void Scene::RenderFinal()
 {
 	//Swapchain OMSet
-	int8 backIndex = GEngine->getSwapChain()->GetBackBufferIndex();
+	int8 backIndex = GEngine->GetSwapChain()->GetBackBufferIndex();
 	GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::SWAP_CHAIN)->OMSetRenderTargets(1, backIndex);
 
 	GET_SINGLE(Resources)->Get<Material>(L"Final")->PushData();

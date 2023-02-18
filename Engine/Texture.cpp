@@ -80,7 +80,7 @@ void Texture::Load(const wstring& path)
 		static_cast<unsigned int>(subResources.size()),
 		subResources.data()
 	);
-	GEngine->getCommandQueue()->FlushResourceCommandQueue();
+	GEngine->GetGraphicsCmdQueue()->FlushResourceCommandQueue();
 
 //View
 

@@ -4,17 +4,14 @@
 
 void RootSignature::Init()
 {
-	CreateSamplerDesc();
-	CreateRootSignature();
+	CreateGraphicsRootSignature();
 }
 
-void RootSignature::CreateSamplerDesc()
+
+void RootSignature::CreateGraphicsRootSignature()
 {
 	_samplerDesc = CD3DX12_STATIC_SAMPLER_DESC(0);
-}
 
-void RootSignature::CreateRootSignature()
-{
 	//rootDiscriptorTable type
 	CD3DX12_DESCRIPTOR_RANGE ranges[] =
 	{
@@ -49,8 +46,31 @@ void RootSignature::CreateRootSignature()
 		0,
 		blobSignature->GetBufferPointer(),
 		blobSignature->GetBufferSize(),
-		IID_PPV_ARGS(&_signature)
+		IID_PPV_ARGS(&_graphicsRootSignature)
 	);
+}
+
+void RootSignature::CreateComputeRootSignature()
+{
+	CD3DX12_DESCRIPTOR_RANGE ranges[] =
+	{
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, 0), //b0-4
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, SRV_REGISTER_COUNT, 0), //t0-t9
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, UAV_REGISTER_COUNT, 0) //u0-4
+	};
+
+	CD3DX12_ROOT_PARAMETER param[1];
+	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
+
+	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param);
+	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE;
+
+	ComPtr<ID3DBlob> blobSignature;
+	ComPtr<ID3DBlob> blobError;
+	::D3D12SerializeRootSignature(&sigDesc, D3D_ROOT_SIGNATURE_VERSION_1, &blobSignature, &blobError);
+	DEVICE->CreateRootSignature(0, blobSignature->GetBufferPointer(), blobSignature->GetBufferSize(),
+		IID_PPV_ARGS(&_computeRootSignature));
+
 }
 
 

@@ -3,6 +3,10 @@
 class SwapChain;
 class DescriptorHeap;
 
+//*******************************
+//GraphicsCommandQueue
+//*******************************
+
 /*
 	ID3DCommandQueue는 DX12에 나온 것으로
 	GPU에는 명령 대기열(Command Queue)이 있다.
@@ -27,6 +31,8 @@ class DescriptorHeap;
 	List를 만들기 위해서는 Allocator 인터페이스 포인터 필요
 	Open/Close를 이용해 명령 추가, 추가 불가 상태 이후 명령 제출
 */
+
+
 class GraphicsCommandQueue
 {
 private:
@@ -52,10 +58,10 @@ public:
 
 	~GraphicsCommandQueue();
 
-	ComPtr<ID3D12CommandQueue> getCmdQueue() { return _cmdQueue; }
-	ComPtr<ID3D12GraphicsCommandList> getCmdList() { return _cmdList; }
+	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> GetGraphicsCmdList() { return _cmdList; }
 
-	ComPtr<ID3D12GraphicsCommandList> getResourceCmdList() { return _resCmdList; }
+	ComPtr<ID3D12GraphicsCommandList> GetResourceCmdList() { return _resCmdList; }
 
 public:
 
@@ -75,3 +81,33 @@ public:
 	void FlushResourceCommandQueue();
 };
 
+//*******************************
+//Compute CommandQueue
+//*******************************
+
+class ComputeCommandQueue
+{
+public:
+	~ComputeCommandQueue();
+
+public:
+
+	void Init(ComPtr<ID3D12Device> device);
+	void WaitSync();
+	void FlushComputeCommandQueue();
+
+public:
+
+	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> GetComputeCmdList() { return _cmdList; }
+
+private:
+
+	ComPtr<ID3D12CommandQueue>			_cmdQueue;
+	ComPtr<ID3D12CommandAllocator>		_cmdAlloc;
+	ComPtr<ID3D12GraphicsCommandList>	_cmdList;
+
+	ComPtr<ID3D12Fence>					_fence;
+	uint32								_fenceValue = 0;
+	HANDLE								_fenceEvent = INVALID_HANDLE_VALUE;
+};

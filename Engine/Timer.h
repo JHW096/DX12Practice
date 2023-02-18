@@ -25,7 +25,7 @@ public:
 	uint32 getFps() { return _fps; }
 
 	//prevFrame ~ prsnFrame time
-	float getDeltaTime() { return _deltaTime; }
+	float GetDeltaTime() { return _deltaTime; }
 
 };
 

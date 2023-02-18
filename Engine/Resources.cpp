@@ -367,7 +367,7 @@ void Resources::CreateDefaultMaterial()
 
 	// PointLight
 	{
-		const WindowInfo& window = GEngine->getWindow();
+		const WindowInfo& window = GEngine->GetWindow();
 		Vec2 resolution = { static_cast<float>(window.width), static_cast<float>(window.height) };
 
 		shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"PointLight");

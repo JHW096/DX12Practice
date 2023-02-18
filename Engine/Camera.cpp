@@ -25,8 +25,8 @@ void Camera::FinalUpdate()
 	//invert(역행렬) 찍고 있는 카메라의 월드 행렬에 역행렬을 해주면 뷰변환행렬
 	_matView = GetTransform()->GetLocalToWorldMatrix().Invert();
 
-	float width = static_cast<float>(GEngine->getWindow().width);
-	float height = static_cast<float>(GEngine->getWindow().height);
+	float width = static_cast<float>(GEngine->GetWindow().width);
+	float height = static_cast<float>(GEngine->GetWindow().height);
 
 	if (_type == PROJECTION_TYPE::PERSPECTIVE) //원근 투영
 	{

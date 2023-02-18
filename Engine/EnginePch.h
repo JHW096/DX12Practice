@@ -147,15 +147,16 @@ public:								\
 #define GET_SINGLE(type)	type::GetInstance()
 
 
-#define DEVICE						GEngine->getDevice()->getDeivce()
-#define CMD_LIST					GEngine->getCommandQueue()->getCmdList()
-#define RESOURCE_CMD_LIST			GEngine->getCommandQueue()->getResourceCmdList()
-#define ROOT_SIGNATURE				GEngine->getRootSignature()->getSignature()
+#define DEVICE						GEngine->GetDevice()->GetDeivce()
+#define GRAPHICS_CMD_LIST			GEngine->GetGraphicsCmdQueue()->GetGraphicsCmdList()
+#define COMPUTE_CMD_LIST			GEngine->GetComputeCmdQueue()->GetComputeCmdList()
+#define RESOURCE_CMD_LIST			GEngine->GetGraphicsCmdQueue()->GetResourceCmdList()
+#define ROOT_SIGNATURE				GEngine->GetRootSignature()->GetGraphicsRootSignature()
 
 #define INPUT						GET_SINGLE(Input)
-#define DELTA_TIME					GET_SINGLE(Timer)->getDeltaTime()
+#define DELTA_TIME					GET_SINGLE(Timer)->GetDeltaTime()
 
-#define CONST_BUFFER(type)			GEngine->getConstantBuffer(type)
+#define CONST_BUFFER(type)			GEngine->GetConstantBuffer(type)
 
 struct TransformParams
 {

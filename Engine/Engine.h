@@ -21,7 +21,8 @@ private:
 
 	//Render
 	shared_ptr<Device> _device = make_shared<Device>();
-	shared_ptr<GraphicsCommandQueue> _cmdQueue = make_shared<GraphicsCommandQueue>();
+	shared_ptr<GraphicsCommandQueue> _graphicsCmdQueue = make_shared<GraphicsCommandQueue>();
+	shared_ptr<ComputeCommandQueue> _computeCmdQueue = make_shared<ComputeCommandQueue>();
 	shared_ptr<SwapChain> _swapChain = make_shared<SwapChain>();
 	shared_ptr<RootSignature> _rootSignature = make_shared<RootSignature>();
 	shared_ptr<ConstantBuffer> _cb = make_shared<ConstantBuffer>();
@@ -37,20 +38,21 @@ private:
 
 public:
 
-	const WindowInfo& getWindow() { return _window; }
+	const WindowInfo& GetWindow()								{ return _window; }
 
-	shared_ptr<Device> getDevice()							{ return _device; }
-	shared_ptr<GraphicsCommandQueue> getCommandQueue()				{ return _cmdQueue; }
-	shared_ptr<SwapChain> getSwapChain()					{ return _swapChain; }
-	shared_ptr<RootSignature> getRootSignature()			{ return _rootSignature; }
+	shared_ptr<Device> GetDevice()								{ return _device; }
+	shared_ptr<GraphicsCommandQueue> GetGraphicsCmdQueue()		{ return _graphicsCmdQueue; }
+	shared_ptr<ComputeCommandQueue> GetComputeCmdQueue()		{ return _computeCmdQueue; }
+	shared_ptr<SwapChain> GetSwapChain()						{ return _swapChain; }
+	shared_ptr<RootSignature> GetRootSignature()				{ return _rootSignature; }
 	//shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
-	shared_ptr<TableDescriptorHeap> getTableDescHeap()		{ return _tableDescHeap;  }
+	shared_ptr<TableDescriptorHeap> GetTableDescHeap()			{ return _tableDescHeap;  }
 
 	//move static function
 	/*shared_ptr<Input> getInput()							{ return _input; }
 	shared_ptr<Timer> getTimer()							{ return _timer; }*/
 
-	shared_ptr<ConstantBuffer> getConstantBuffer(CONSTANT_BUFFER_TYPE type) 
+	shared_ptr<ConstantBuffer> GetConstantBuffer(CONSTANT_BUFFER_TYPE type) 
 	{
 		return _constantBuffers[static_cast<uint8>(type)];
 	}
