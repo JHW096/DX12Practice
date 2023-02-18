@@ -27,7 +27,7 @@ class DescriptorHeap;
 	List를 만들기 위해서는 Allocator 인터페이스 포인터 필요
 	Open/Close를 이용해 명령 추가, 추가 불가 상태 이후 명령 제출
 */
-class CommandQueue
+class GraphicsCommandQueue
 {
 private:
 
@@ -50,7 +50,7 @@ private:
  
 public:
 
-	~CommandQueue();
+	~GraphicsCommandQueue();
 
 	ComPtr<ID3D12CommandQueue> getCmdQueue() { return _cmdQueue; }
 	ComPtr<ID3D12GraphicsCommandList> getCmdList() { return _cmdList; }

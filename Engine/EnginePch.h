@@ -75,8 +75,27 @@ enum class SRV_REGISTER : uint8
 	t1,
 	t2,
 	t3,
-	t4,
+	t4, 
+	t5,	//compute shader 이후 추가
+	t6,
+	t7,
+	t8,
+	t9,
+
 	END
+};
+
+//UAV : unordered access view
+//compute Shader에게 넘겨주는 register번호
+enum class UAV_REGISTER : uint8
+{
+	u0 = static_cast<uint8>(SRV_REGISTER::END),
+	u1,
+	u2,
+	u3,
+	u4,
+
+	END,
 };
 
 
@@ -84,8 +103,10 @@ enum
 {
 	SWAP_CAHIN_BUFFER_COUNT = 2,
 	CBV_REGISTER_COUNT = CBV_REGISTER::END,
-	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT, 
-	REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT
+	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT,
+	CBV_SRV_REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
+	UAV_REGISTER_COUNT = static_cast<uint8>(UAV_REGISTER::END),
+	TOTAL_REGISTER_COUNT = CBV_SRV_REGISTER_COUNT + UAV_REGISTER_COUNT
 };
 
 struct WindowInfo

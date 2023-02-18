@@ -2,12 +2,12 @@
 #include "CommandQueue.h"
 #include "Engine.h"
 
-CommandQueue::~CommandQueue()
+GraphicsCommandQueue::~GraphicsCommandQueue()
 {
 	::CloseHandle(_fenceEvent);
 }
 
-void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain)
+void GraphicsCommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain)
 {
 	_swapChain = swapChain;
 
@@ -37,7 +37,7 @@ void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapC
 }
 
 //향후 공부
-void CommandQueue::WaitSync()
+void GraphicsCommandQueue::WaitSync()
 {
 	_fenceValue++;
 
@@ -51,7 +51,7 @@ void CommandQueue::WaitSync()
 	}
 }
 
-void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
+void GraphicsCommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 {
 	//queue clear와 같은 개념 
 	_cmdAlloc->Reset();
@@ -83,7 +83,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	_cmdList->RSSetScissorRects(1, rect);
 }
 
-void CommandQueue::RenderEnd()
+void GraphicsCommandQueue::RenderEnd()
 {
 	int8 backIndex = _swapChain->GetBackBufferIndex();
 
@@ -110,7 +110,7 @@ void CommandQueue::RenderEnd()
 
 }
 
-void CommandQueue::FlushResourceCommandQueue()
+void GraphicsCommandQueue::FlushResourceCommandQueue()
 {
 	_resCmdList->Close();
 

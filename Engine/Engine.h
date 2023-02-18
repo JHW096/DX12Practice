@@ -21,7 +21,7 @@ private:
 
 	//Render
 	shared_ptr<Device> _device = make_shared<Device>();
-	shared_ptr<CommandQueue> _cmdQueue = make_shared<CommandQueue>();
+	shared_ptr<GraphicsCommandQueue> _cmdQueue = make_shared<GraphicsCommandQueue>();
 	shared_ptr<SwapChain> _swapChain = make_shared<SwapChain>();
 	shared_ptr<RootSignature> _rootSignature = make_shared<RootSignature>();
 	shared_ptr<ConstantBuffer> _cb = make_shared<ConstantBuffer>();
@@ -40,7 +40,7 @@ public:
 	const WindowInfo& getWindow() { return _window; }
 
 	shared_ptr<Device> getDevice()							{ return _device; }
-	shared_ptr<CommandQueue> getCommandQueue()				{ return _cmdQueue; }
+	shared_ptr<GraphicsCommandQueue> getCommandQueue()				{ return _cmdQueue; }
 	shared_ptr<SwapChain> getSwapChain()					{ return _swapChain; }
 	shared_ptr<RootSignature> getRootSignature()			{ return _rootSignature; }
 	//shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
