@@ -73,7 +73,7 @@ void GraphicsCommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_REC
 		//즉 swapchain을 해주겠다. 
 	);
 
-	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	_cmdList->SetGraphicsRootSignature(GRAPHICS_ROOT_SIGNATURE.Get());
 	
 	GEngine->GetConstantBuffer(CONSTANT_BUFFER_TYPE::TRANSFORM)->Clear();
 	GEngine->GetConstantBuffer(CONSTANT_BUFFER_TYPE::MATERIAL)->Clear();
