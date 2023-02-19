@@ -37,7 +37,7 @@ void Mesh::Render()
 	//GEngine->getTableDescHeap()->setCBV(handle, CBV_REGISTER::b0);
 	//GEngine->getTableDescHeap()->setSRV(_tex->getCpuHandle(), SRV_REGISTER::t0);
 
-	GEngine->GetTableDescHeap()->CommitTable();
+	GEngine->GetGraphicsDescHeap()->CommitTable();
 
 
 	//	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);

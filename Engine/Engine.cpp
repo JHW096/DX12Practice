@@ -30,7 +30,8 @@ void Engine::Init(const WindowInfo& info)
 	_swapChain->Init(info, _device->GetDeivce(), _device->getDXGI(), _graphicsCmdQueue->GetCmdQueue());
 	_rootSignature->Init();
 	//_cb->Init(sizeof(Transform), 256); ´ÜÀÏ contantbuffer
-	_tableDescHeap->Init(256);
+	_graphicsDescHeap->Init(256);
+	_computeDescHeap->Init();
 
 	CreateConstantBuffer(CBV_REGISTER::b0, sizeof(LightParams), 1);
 	CreateConstantBuffer(CBV_REGISTER::b1, sizeof(TransformParams), 256);

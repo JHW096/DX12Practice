@@ -98,7 +98,7 @@ void ConstantBuffer::PushData(void* buffer, uint32 size)
 	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = getCpuHandle(_currentIndex);
 
 
-	GEngine->GetTableDescHeap()->setCBV(cpuHandle, _reg);
+	GEngine->GetGraphicsDescHeap()->setCBV(cpuHandle, _reg);
 
 	//D3D12_GPU_VIRTUAL_ADDRESS address = getGpuVirtualAddress(_currentIndex);
 	////gpu register에 일감등록
