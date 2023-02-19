@@ -396,4 +396,13 @@ void Resources::CreateDefaultMaterial()
 		material->setTexture(2, GET_SINGLE(Resources)->Get<Texture>(L"SpecularLightTarget"));
 		Add<Material>(L"Final", material);
 	}
+
+
+	//Compute Shader
+	{
+		shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"ComputeShader");
+		shared_ptr<Material> material = make_shared<Material>();
+		material->setShader(shader);
+		Add<Material>(L"ComputeShader", material);
+	}
 }
