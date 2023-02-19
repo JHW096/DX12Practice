@@ -26,7 +26,7 @@ private:
 	shared_ptr<SwapChain> _swapChain = make_shared<SwapChain>();
 	shared_ptr<RootSignature> _rootSignature = make_shared<RootSignature>();
 	shared_ptr<ConstantBuffer> _cb = make_shared<ConstantBuffer>();
-	shared_ptr<TableDescriptorHeap> _tableDescHeap = make_shared<TableDescriptorHeap>();
+	shared_ptr<GraphicsDescriptorHeap> _tableDescHeap = make_shared<GraphicsDescriptorHeap>();
 	
 	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
 	array<shared_ptr<RenderTargetGroup>, RENDER_TARGET_GROUP_COUNT> _rtGroups;
@@ -46,7 +46,7 @@ public:
 	shared_ptr<SwapChain> GetSwapChain()						{ return _swapChain; }
 	shared_ptr<RootSignature> GetRootSignature()				{ return _rootSignature; }
 	//shared_ptr<ConstantBuffer> getCB()						{ return _cb;  }
-	shared_ptr<TableDescriptorHeap> GetTableDescHeap()			{ return _tableDescHeap;  }
+	shared_ptr<GraphicsDescriptorHeap> GetTableDescHeap()			{ return _tableDescHeap;  }
 
 	//move static function
 	/*shared_ptr<Input> getInput()							{ return _input; }
