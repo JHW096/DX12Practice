@@ -258,7 +258,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\skybox.fx", info);
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\skybox.fx", info);
 		Add<Shader>(L"Skybox", shader);
 	}
 
@@ -270,7 +270,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\deferred.fx", info);
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\deferred.fx", info);
 		Add<Shader>(L"Deferred", shader);
 	}
 
@@ -282,7 +282,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\forward.fx", info);
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\forward.fx", info);
 		Add<Shader>(L"Forward", shader);
 	}
 
@@ -296,7 +296,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\forward.fx", info, "VS_Tex", "PS_Tex");
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\forward.fx", info, "VS_Tex", "PS_Tex");
 		Add<Shader>(L"Texture", shader);
 	}
 
@@ -311,7 +311,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\lighting.fx", info, "VS_DirLight", "PS_DirLight");
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\lighting.fx", info, "VS_DirLight", "PS_DirLight");
 		Add<Shader>(L"DirLight", shader);
 	}
 
@@ -326,7 +326,7 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\lighting.fx", info, "VS_PointLight", "PS_PointLight");
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\lighting.fx", info, "VS_PointLight", "PS_PointLight");
 		Add<Shader>(L"PointLight", shader);
 	}
 
@@ -340,8 +340,15 @@ void Resources::CreateDefaultShader()
 		};
 
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Resource\\Shader\\lighting.fx", info, "VS_Final", "PS_Final");
+		shader->CreateGraphicsShader(L"..\\Resource\\Shader\\lighting.fx", info, "VS_Final", "PS_Final");
 		Add<Shader>(L"Final", shader);
+	}
+	
+	//Compute Shader 
+	{
+		shared_ptr<Shader> shader = make_shared<Shader>();
+		shader->CreateComputeShader(L"..\\Resource\\Shader\\compute.fx", "CS_Main", "cs_5_0");
+		Add<Shader>(L"ComputeShader", shader);	
 	}
 }
 
