@@ -159,6 +159,7 @@ void Shader::CreateGraphicsShader(const wstring& path, ShaderInfo info, const st
 void Shader::CreateComputeShader(const wstring& path, const string& name, const string& version)
 {
 	_info.shaderType = SHADER_TYPE::COMPUTE;
+
 	CreateShader(path, name, version, _csBlob, _computePipelineDesc.CS);
 	_computePipelineDesc.pRootSignature = COMPUTE_ROOT_SIGNATURE.Get();
 

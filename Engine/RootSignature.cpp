@@ -5,6 +5,7 @@
 void RootSignature::Init()
 {
 	CreateGraphicsRootSignature();
+	CreateComputeRootSignature();
 }
 
 
@@ -56,7 +57,7 @@ void RootSignature::CreateComputeRootSignature()
 	{
 		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, 0), //b0-4
 		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, SRV_REGISTER_COUNT, 0), //t0-t9
-		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, UAV_REGISTER_COUNT, 0) //u0-4
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, UAV_REGISTER_COUNT, 0), //u0-4
 	};
 
 	CD3DX12_ROOT_PARAMETER param[1];
@@ -71,6 +72,7 @@ void RootSignature::CreateComputeRootSignature()
 	DEVICE->CreateRootSignature(0, blobSignature->GetBufferPointer(), blobSignature->GetBufferSize(),
 		IID_PPV_ARGS(&_computeRootSignature));
 
+	COMPUTE_CMD_LIST->SetComputeRootSignature(_computeRootSignature.Get());
 }
 
 

@@ -15,12 +15,13 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 {
 	if (threadIndex.y % 2 == 0)
 	{
-		g_rwtex_0[threadIndex.xy] = float4(1.0f, 0.0f, 0.0f, 1.0f); //RGBA
+		g_rwtex_0[threadIndex.xy] = float4(1.f, 0.f, 0.f, 1.f);
 	}
 	else
 	{
-		g_rwtex_0[threadIndex.xy] = float4(0.0f, 1.0f, 0.0f, 1.0f);
+		g_rwtex_0[threadIndex.xy] = float4(0.f, 1.f, 0.f, 1.f);
 	}
+	
 }
 
 #endif

@@ -53,6 +53,9 @@ public:
 	
 	void setVec2(uint8 index, Vec2 value) { _params.setVec2(index, value); }
 
-	void PushData();
+	void PushGraphicsData();
+	void PushComputeData();
+	void Dispatch(uint32 x, uint32 y, uint32 z);
+
 };
 

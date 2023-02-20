@@ -55,7 +55,7 @@ void ConstantBuffer::CreateView()
 
 	for (uint32 i = 0; i < _elementCount; ++i)
 	{
-		D3D12_CPU_DESCRIPTOR_HANDLE cbvHandle = getCpuHandle(i);
+		D3D12_CPU_DESCRIPTOR_HANDLE cbvHandle = GetCpuHandle(i);
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc = {};
 		cbvDesc.BufferLocation = _cbvBuffer->GetGPUVirtualAddress() + static_cast<uint64>(_elementSize) * i;
@@ -85,7 +85,7 @@ void ConstantBuffer::Clear()
 }
 
 //rootParamIndex는 RootSignature에서 만든 Constant register index이다.
-void ConstantBuffer::PushData(void* buffer, uint32 size)
+void ConstantBuffer::PushGraphicsData(void* buffer, uint32 size)
 {
 	//assert는 디버깅 코드로 아래와 같은 조건이 만족하지 않으면 Crash한다.
 	assert(_currentIndex < _elementCount);
@@ -95,7 +95,7 @@ void ConstantBuffer::PushData(void* buffer, uint32 size)
 	//즉 cpu에 있는 정보를 gpu ram에 있는 buffer에 복사한다는 것. /즉시 일어남
 	::memcpy(&_mappedBuffer[_currentIndex * _elementSize], buffer, size);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = getCpuHandle(_currentIndex);
+	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = GetCpuHandle(_currentIndex);
 
 
 	GEngine->GetGraphicsDescHeap()->setCBV(cpuHandle, _reg);
@@ -107,15 +107,28 @@ void ConstantBuffer::PushData(void* buffer, uint32 size)
 	_currentIndex++;
 }
 
-void ConstantBuffer::SetGlobalData(void* buffer, uint32 size)
+void ConstantBuffer::SetGraphicsGlobalData(void* buffer, uint32 size)
 {
 	//currentIndex를 활용하지 않고 mappedbuffer0번을 무조건 사용
 	assert(_elementSize == ((size + 255) & ~255));
 	::memcpy(&_mappedBuffer[0], buffer, size);
-	GRAPHICS_CMD_LIST->SetGraphicsRootConstantBufferView(0, getGpuVirtualAddress(0));
+	GRAPHICS_CMD_LIST->SetGraphicsRootConstantBufferView(0, GetGpuVirtualAddress(0));
 }
 
-D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
+void ConstantBuffer::PushComputeData(void* buffer, uint32 size)
+{
+	assert(_currentIndex < _elementCount);
+	assert(_elementSize == ((size + 255) & ~255));
+
+	::memcpy(&_mappedBuffer[_currentIndex * _elementSize], buffer, size);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = GetCpuHandle(_currentIndex);
+	GEngine->GetComputeDescHeap()->SetCBV(cpuHandle, _reg);
+
+	_currentIndex++;
+}
+
+D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGpuVirtualAddress(uint32 index)
 {
 	//gpubuffer의 주소를 받아와서 몇 번째 주소인지 알려주며 return
 	D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = _cbvBuffer->GetGPUVirtualAddress();
@@ -123,7 +136,7 @@ D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::getGpuVirtualAddress(uint32 index)
 	return objCBAddress;
 }
 
-D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::getCpuHandle(uint32 index)
+D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::GetCpuHandle(uint32 index)
 {
 	/*
 		d3d12_cpu_descirptor_handle handle = _cpuHandleBegin;

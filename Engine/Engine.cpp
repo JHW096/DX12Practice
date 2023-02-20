@@ -132,9 +132,9 @@ void Engine::CreateRenderTargetGroups()
 
 	//SwapChainGroup
 	{
-		vector<RenderTarget> rtVec(SWAP_CAHIN_BUFFER_COUNT);
+		vector<RenderTarget> rtVec(SWAP_CHAIN_BUFFER_COUNT);
 
-		for (uint32 i = 0; i < SWAP_CAHIN_BUFFER_COUNT; ++i)
+		for (uint32 i = 0; i < SWAP_CHAIN_BUFFER_COUNT; ++i)
 		{
 			wstring name = L"SwapChainTarget_" + std::to_wstring(i);
 

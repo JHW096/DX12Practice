@@ -15,7 +15,7 @@ void SwapChain::Present()
 
 void SwapChain::Swapindex()
 {
-	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CAHIN_BUFFER_COUNT;
+	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CHAIN_BUFFER_COUNT;
 	//0 -> 1 -> 0 -> 1
 	//Swapchain을 한다
 }
@@ -36,7 +36,7 @@ void SwapChain::CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxg
 	sd.SampleDesc.Count = 1;									//멀티 샘플링 OFF
 	sd.SampleDesc.Quality = 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.BufferCount = SWAP_CAHIN_BUFFER_COUNT;					//전면 + 후면 (2)
+	sd.BufferCount = SWAP_CHAIN_BUFFER_COUNT;					//전면 + 후면 (2)
 	sd.OutputWindow = info.hwnd;
 	sd.Windowed = info.windowed;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;				//전면 후면 버퍼 교체시 이전 프레임 정보 버림

@@ -344,11 +344,11 @@ void Resources::CreateDefaultShader()
 		Add<Shader>(L"Final", shader);
 	}
 	
-	//Compute Shader 
+	// Compute Shader
 	{
 		shared_ptr<Shader> shader = make_shared<Shader>();
 		shader->CreateComputeShader(L"..\\Resource\\Shader\\compute.fx", "CS_Main", "cs_5_0");
-		Add<Shader>(L"ComputeShader", shader);	
+		Add<Shader>(L"ComputeShader", shader);
 	}
 }
 
@@ -398,7 +398,7 @@ void Resources::CreateDefaultMaterial()
 	}
 
 
-	//Compute Shader
+	// Compute Shader
 	{
 		shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"ComputeShader");
 		shared_ptr<Material> material = make_shared<Material>();
