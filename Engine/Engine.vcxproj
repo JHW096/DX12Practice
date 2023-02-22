@@ -243,6 +243,7 @@
     <FxCompile Include="..\Resource\Shader\forward.fx" />
     <FxCompile Include="..\Resource\Shader\lighting.fx" />
     <FxCompile Include="..\Resource\Shader\params.fx" />
+    <FxCompile Include="..\Resource\Shader\particle.fx" />
     <FxCompile Include="..\Resource\Shader\skybox.fx" />
     <FxCompile Include="..\Resource\Shader\utils.fx" />
   </ItemGroup>
