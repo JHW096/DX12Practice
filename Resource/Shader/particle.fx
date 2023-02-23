@@ -6,7 +6,7 @@
 
 struct Particle
 {
-	float3	worldpos;
+	float3	worldPos;
 	float	curTime;
 	float3	worldDir;
 	float	lifeTime;
@@ -127,8 +127,8 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 	int frameNumber = g_int_2;
 	float deltaTime = g_vec2_1.x;
 	float accTime = g_vec2_1.y;
-	float minLifeTime = g_vec4_0_x;
-	float maxLifeTime = g_vec4_0_y;
+	float minLifeTime = g_vec4_0.x;
+	float maxLifeTime = g_vec4_0.y;
 	float minSpeed = g_vec4_0.z;
 	float maxSpeed = g_vec4_0.w;
 
@@ -140,7 +140,7 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 	//모든 애들이 동시다발적으로 시작하다보니, 아래에서 실행도중 다른 애가 들어와서 reset하는 경우가 발생할 수 있음.
 	g_shared[0].addCount = addCount; //공용 메모리에 부활해야하는 갯수를 넘겨줌.
 	//Barrier을 쳐서 모든 쓰레드에 대한 순서 보장. 단 성능은 좀 떨어질 수 있음.
-	GroupMemomryBarrierWithGroupSync();
+	GroupMemoryBarrierWithGroupSync();
 
 	if (g_particle[threadIndex.x].alive == 0) //만약 죽어있는 값이라면,
 	{
@@ -166,7 +166,7 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 				}
 				originalValue = g_shared[0].addCount;
 			*/
-			InterlockedCompareExchange(g_shared[0], addCount, expected, desired, originalValue);
+			InterlockedCompareExchange(g_shared[0].addCount, expected, desired, originalValue);
 
 			if (originalValue == expected)
 			{
@@ -179,8 +179,8 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 		{
 			float x = ((float)threadIndex.x / (float)maxCount) + accTime;
 
-			float r1 = Rand((float2(x, accTime);
-			float r2 = Rand((float2(x * accTime, accTime));
+			float r1 = Rand(float2(x, accTime));
+			float r2 = Rand(float2(x * accTime, accTime));
 			float r3 = Rand(float2(x * accTime * accTime, accTime * accTime));
 
 			//[0.5 ~ 1] ->[0 ~ 1]
@@ -194,15 +194,15 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 			float3 dir = (noise - 0.5f) * 2.0f;
 
 			g_particle[threadIndex.x].worldDir = normalize(dir);
-			g_paritcle[threadIndex.x].worldPos = (noise.xyz - 0.5f) * 25;
-			g_paritcle[threadIndex.x].lifeTime = ((maxLifeTime - nminLifeTime) * noise.x) + minLifeTime;
+			g_particle[threadIndex.x].worldPos = (noise.xyz - 0.5f) * 25;
+			g_particle[threadIndex.x].lifeTime = ((maxLifeTime - minLifeTime) * noise.x) + minLifeTime;
 			g_particle[threadIndex.x].curTime = 0.0f;
 		}
 	}
 	else
 	{
 		g_particle[threadIndex.x].curTime += deltaTime;
-		if (g_particle[threadIndex].lifeTime < g_particle[threadIndex.x].curTime)
+		if (g_particle[threadIndex.x].lifeTime < g_particle[threadIndex.x].curTime)
 		{
 			g_particle[threadIndex.x].alive = 0;
 			return;
@@ -210,7 +210,7 @@ void CS_Main(int3 threadIndex : SV_DispatchThreadID)
 
 		float ratio = g_particle[threadIndex.x].curTime / g_particle[threadIndex.x].lifeTime;
 		float speed = (maxSpeed - minSpeed) * ratio + minSpeed;
-		g_particle[threadindex.x].worldPos += g_particle[threadIndex.x].worldDir * speed * deltaTime;
+		g_particle[threadIndex.x].worldPos += g_particle[threadIndex.x].worldDir * speed * deltaTime;
 	}
 }
 

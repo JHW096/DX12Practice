@@ -74,5 +74,11 @@ LightColor CalculateLightColor(int lightIndex, float3 viewNormal, float3 viewPos
     return color;
 }
 
+//frac 소숫점을 꺼내오는 함수
+//hlsl은 랜덤함수가 없어서 그냥 대충 쓰는 랜덤 함수
+float Rand(float2 co)
+{
+    return 0.5 + (frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453)) * 0.5;
+}
 
 #endif
