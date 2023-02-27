@@ -7,6 +7,7 @@ class MeshRenderer;
 class MonoBehaviour;
 class Camera;
 class Light;
+class ParticleSystem;
 
 class GameObject : public Object, public enable_shared_from_this<GameObject>
 	//enable_shared_from_this는 별 다른 것이 아닌,
@@ -43,7 +44,8 @@ public:
 	shared_ptr<MeshRenderer> GetMeshRenderer();
 	shared_ptr<Camera> GetCamera();
 	shared_ptr<Light> GetLight();
-	
+	shared_ptr<ParticleSystem> GetParticleSystem();
+
 	void addComponent(shared_ptr<Component> component);
 
 //Frustum Fn

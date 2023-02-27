@@ -29,8 +29,9 @@ private:
 	uint32 _cullingMask = 0;
 
 //Render Temp var
-	vector<shared_ptr<GameObject>> _vecDeferred;
-	vector<shared_ptr<GameObject>> _vecForward;
+	vector<shared_ptr<GameObject>>		_vecDeferred;
+	vector<shared_ptr<GameObject>>		_vecForward;
+	vector<shared_ptr<GameObject>>		_vecParticle;
 
 public:
 	//TEMP

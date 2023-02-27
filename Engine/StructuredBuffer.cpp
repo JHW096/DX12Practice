@@ -19,7 +19,7 @@ void StructuredBuffer::Init(uint32 elementSize, uint32 elementCount)
 	_elementCount = elementCount;
 	_resourceState = D3D12_RESOURCE_STATE_COMMON;
 	
-/*Buffer*/
+/*Buffer*/ /* GPU에게 원하는 크기의 배열을 만들어 달라 요청.*/
 	{
 		uint64 bufferSize = static_cast<uint64>(_elementSize) * _elementCount;
 		D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
@@ -34,7 +34,9 @@ void StructuredBuffer::Init(uint32 elementSize, uint32 elementCount)
 			IID_PPV_ARGS(&_buffer)
 		);
 	}
-/*SRV*/
+
+/* 원하는 레지스터에 맵핑을 하기 위해 view를 만든다. SRV, UAV */
+/*SRV*/ 
 	{
 		D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc{ };
 		srvHeapDesc.NumDescriptors = 1;
@@ -81,7 +83,7 @@ void StructuredBuffer::Init(uint32 elementSize, uint32 elementCount)
 
 void StructuredBuffer::PushGraphicsData(SRV_REGISTER reg)
 {
-	GEngine->GetGraphicsDescHeap()->setSRV(_srvHeapBegin, reg);
+	GEngine->GetGraphicsDescHeap()->SetSRV(_srvHeapBegin, reg);
 }
 
 void StructuredBuffer::PushComputeSRVData(SRV_REGISTER reg)

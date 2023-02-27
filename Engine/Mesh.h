@@ -34,7 +34,7 @@ public:
 
 	void Init(vector<Vertex>& vertexBuffer, vector<uint32>& indexBuffer);
 
-	void Render();
+	void Render(uint32 instanceCount = 1);
 
 
 	//Test 
