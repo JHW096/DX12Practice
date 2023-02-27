@@ -22,7 +22,7 @@ ParticleSystem::ParticleSystem() : Component(COMPONENT_TYPE::PARTICLE_SYSTEM)
 	_mesh = GET_SINGLE(Resources)->LoadPointMesh();
 	_material = GET_SINGLE(Resources)->Get<Material>(L"Particle");
 	shared_ptr<Texture> tex = GET_SINGLE(Resources)->Load<Texture>(
-		L"Bubbles", L"..\\Resource\\Texture\\Particle\\bubble.jpg"
+		L"Bubbles", L"..\\Resource\\Texture\\Particle\\bubble.png"
 		);
 
 	_material->setTexture(0, tex);
