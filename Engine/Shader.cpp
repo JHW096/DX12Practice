@@ -31,6 +31,9 @@ void Shader::CreateGraphicsShader(const wstring& path, ShaderInfo info, const st
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }, 
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},
 		{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},
+
+		/*add InstancingBuffer after*/
+		{}
 	};
 
 	_graphicsPipelineDesc.InputLayout = { desc, _countof(desc) };

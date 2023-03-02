@@ -58,6 +58,7 @@ void InstancingBuffer::PushData()
 	_buffer->Unmap(0, nullptr);
 
 	_bufferView.BufferLocation = _buffer->GetGPUVirtualAddress();
+	//각 데이터의 크기의 바이트는 다음 구조체와 같다.
 	_bufferView.StrideInBytes = sizeof(InstancingParams);
 	_bufferView.SizeInBytes = bufferSize;
 }

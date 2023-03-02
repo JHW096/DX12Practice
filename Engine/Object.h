@@ -31,6 +31,9 @@ protected:
 	virtual void Load(const wstring& path) { }
 	virtual void Save(const wstring& path) { }
 
+protected:
+	uint32 _id = 0;
+
 public:
 
 	Object(OBJECT_TYPE type);
@@ -44,5 +47,8 @@ public:
 	const wstring& GetName() { return _name; }
 	
 	//TODO : Instantiate
+
+	uint32 GetID() { return _id; }
+
 };
 

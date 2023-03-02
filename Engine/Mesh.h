@@ -35,7 +35,7 @@ public:
 	void Init(vector<Vertex>& vertexBuffer, vector<uint32>& indexBuffer);
 
 	void Render(uint32 instanceCount = 1);
-
+	void Render(shared_ptr<class InstancingBuffer>& buffer);
 
 	//Test 
 	//void setTexture(shared_ptr<Texture> tex) { _tex = tex;  }

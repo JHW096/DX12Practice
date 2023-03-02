@@ -127,6 +127,9 @@
     <ClInclude Include="InstancingBuffer.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="InstancingManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -225,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="InstancingBuffer.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
