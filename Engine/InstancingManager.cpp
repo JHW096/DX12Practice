@@ -39,7 +39,7 @@ void InstancingManager::Render(vector<shared_ptr<GameObject>>& gameObjects)
 				InstancingParams params;
 				params.matWorld = gameObject->GetTransform()->GetLocalToWorldMatrix();
 				params.matWV = params.matWorld * Camera::S_MatView;
-				params.matWVP = params.matWorld * Camera::S_MatProjection;
+				params.matWVP = params.matWorld * Camera::S_MatView * Camera::S_MatProjection;
 
 				AddParams(instanceId, params);
 			}

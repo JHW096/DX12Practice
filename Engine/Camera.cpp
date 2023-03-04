@@ -47,7 +47,6 @@ void Camera::SortGameObject()
 	shared_ptr<Scene> scene = GET_SINGLE(SceneManager)->getActiveScene();
 	const vector<shared_ptr<GameObject>>& gameObjects = scene->GetGameObjects();
 
-	//이전 프레임의 정보 지우기
 	_vecForward.clear();
 	_vecDeferred.clear();
 	_vecParticle.clear();
@@ -55,14 +54,10 @@ void Camera::SortGameObject()
 	for (auto& gameObject : gameObjects)
 	{
 		if (gameObject->GetMeshRenderer() == nullptr && gameObject->GetParticleSystem() == nullptr)
-		{
 			continue;
-		}
 
 		if (IsCulled(gameObject->GetLayerIndex()))
-		{
 			continue;
-		}
 
 		if (gameObject->GetCheckFrustum())
 		{
@@ -73,7 +68,7 @@ void Camera::SortGameObject()
 				continue;
 			}
 		}
-		
+
 		if (gameObject->GetMeshRenderer())
 		{
 			SHADER_TYPE shaderType = gameObject->GetMeshRenderer()->GetMaterial()->GetShader()->GetShaderType();
@@ -91,7 +86,6 @@ void Camera::SortGameObject()
 		{
 			_vecParticle.push_back(gameObject);
 		}
-			 
 	}
 }
 
@@ -108,8 +102,7 @@ void Camera::Render_Forward()
 	S_MatView = _matView;
 	S_MatProjection = _matProjection;
 
-	GET_SINGLE(InstancingManager)->Render(_vecDeferred);
-	
+	GET_SINGLE(InstancingManager)->Render(_vecForward);
 
 	for (auto& gameObject : _vecParticle)
 	{

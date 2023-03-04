@@ -61,5 +61,7 @@ public:
 	void PushComputeData();
 	void Dispatch(uint32 x, uint32 y, uint32 z);
 
+	shared_ptr<Material> Clone();
+
 };
 

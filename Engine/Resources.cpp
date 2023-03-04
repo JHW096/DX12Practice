@@ -466,4 +466,18 @@ void Resources::CreateDefaultMaterial()
 		
 		Add<Material>(L"ComputeParticle", material);
 	}
+
+	// GameObject
+	{
+		shared_ptr<Shader> sphereShader = GET_SINGLE(Resources)->Get<Shader>(L"Deferred");
+		shared_ptr<Texture> sphereTexture1 =
+			GET_SINGLE(Resources)->Load<Texture>(L"Leather", L"..\\Resource\\Texture\\Leather.jpg");
+		shared_ptr<Texture> sphereTexture2 =
+			GET_SINGLE(Resources)->Load<Texture>(L"Leather_Normal", L"..\\Resource\\Texture\\Leather_Normal.jpg");
+		shared_ptr<Material> sphereMaterial = make_shared<Material>();
+		sphereMaterial->setShader(sphereShader);
+		sphereMaterial->setTexture(0, sphereTexture1);
+		sphereMaterial->setTexture(1, sphereTexture2);
+		Add<Material>(L"GameObject", sphereMaterial);
+	}
 }

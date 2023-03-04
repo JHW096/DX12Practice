@@ -27,6 +27,8 @@ public:
 	ComPtr<ID3D12Resource>		GetBuffer() { return _buffer; }
 	D3D12_VERTEX_BUFFER_VIEW	GetBufferView() { return _bufferView; }
 
+	void						SetID(uint64 instanceId) { _instanceId = instanceId; }
+	uint64						GetID() { return _instanceId; }
 
 //PushData하면 Resource와 View, ID를 넘겨주어 작업
 private:

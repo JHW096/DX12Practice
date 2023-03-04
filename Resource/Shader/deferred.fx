@@ -29,21 +29,19 @@ struct VS_OUT
 VS_OUT VS_Main(VS_IN input)
 {
     VS_OUT output = (VS_OUT)0;
-
     //g_int1_0 == 1 Instancing Àû¿ë
     if (g_int_0 == 1)
     {
         //differentces from traditional method / global -> input
-        output.pos = mul(float4(input.pos, 1.0f), input.matWVP);
+        output.pos = mul(float4(input.pos, 1.f), input.matWVP);
         output.uv = input.uv;
 
-        output.viewPos = mul(float4(input.pos, 1.0f), input.matWV).xyz;
-        output.viewNormal = normalize(mul(float4(input.normal, 0.0f), input.matWV).xyz);
-        output.viewTangent = normalize(mul(float4(input.tangent, 0.0f), input.matWV).xyz);
+        output.viewPos = mul(float4(input.pos, 1.f), input.matWV).xyz;
+        output.viewNormal = normalize(mul(float4(input.normal, 0.f), input.matWV).xyz);
+        output.viewTangent = normalize(mul(float4(input.tangent, 0.f), input.matWV).xyz);
         output.viewBinormal = normalize(cross(output.viewTangent, output.viewNormal));
     }
-    //Existing method
-    else
+    else//Prev method
     {
         output.pos = mul(float4(input.pos, 1.f), g_matWVP);
         output.uv = input.uv;

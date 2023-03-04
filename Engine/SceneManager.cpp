@@ -169,64 +169,35 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	}
 #pragma endregion
 
-#pragma region Sphere
-
-	shared_ptr<GameObject> sphere = make_shared<GameObject>();
-	sphere->addComponent(make_shared<Transform>());
-	sphere->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
-	sphere->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
-	shared_ptr<MeshRenderer> sphereRenderer = make_shared<MeshRenderer>();
+#pragma region Sphere / Object
+	for(int32 i = 0; i < 50; i++)
 	{
-		shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
-		sphereRenderer->setMesh(sphereMesh);
+		shared_ptr<GameObject> sphere = make_shared<GameObject>();
+		sphere->addComponent(make_shared<Transform>());
+		sphere->GetTransform()->SetLocalScale(Vec3(25.0f, 25.0f, 25.0f));
+		sphere->GetTransform()->SetLocalPosition(Vec3(-300.0f + i * 10.0f, 0.0f, 500.0f));
+		shared_ptr<MeshRenderer> sphereRenderer = make_shared<MeshRenderer>();
+		{
+			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
+			sphereRenderer->setMesh(sphereMesh);
+		}
+		{
+			shared_ptr<Material> material = GET_SINGLE(Resources)->Get<Material>(L"GameObject");
+			//Instancing method
+			//material->setInt(0, 1);
+			//sphereRenderer->setMaterial(material);
+			
+			//Prev Method
+			material->setInt(0, 0);
+			sphereRenderer->setMaterial(material->Clone());
+		}
+		sphere->addComponent(sphereRenderer);
+		scene->AddGameObject(sphere);
 	}
-	{
-		shared_ptr<Shader> sphereShader = GET_SINGLE(Resources)->Get<Shader>(L"Deferred");
-		shared_ptr<Texture> sphereTexture1 = 
-			GET_SINGLE(Resources)->Load<Texture>(L"Leather", L"..\\Resource\\Texture\\Leather.jpg");
-		shared_ptr<Texture> sphereTexture2 = 
-			GET_SINGLE(Resources)->Load<Texture>(L"Leather_Normal", L"..\\Resource\\Texture\\Leather_Normal.jpg");
-		shared_ptr<Material> sphereMaterial = make_shared<Material>();
-		sphereMaterial->setShader(sphereShader);
-		sphereMaterial->setTexture(0, sphereTexture1);
-		sphereMaterial->setTexture(1, sphereTexture2);
-		sphereRenderer->setMaterial(sphereMaterial);
-	}
-	sphere->addComponent(sphereRenderer);
-	scene->AddGameObject(sphere);
-
+	
 #pragma endregion
 
 
-//#pragma region Cube
-//
-//	shared_ptr<GameObject> Cube = make_shared<GameObject>();
-//	Cube->addComponent(make_shared<Transform>());
-//	Cube->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
-//	Cube->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 150.0f));
-//	shared_ptr<MeshRenderer> cubeRenderer = make_shared<MeshRenderer>();
-//	{
-//		shared_ptr<Mesh> cubeMesh = GET_SINGLE(Resources)->LoadCubeMesh();
-//		cubeRenderer->setMesh(cubeMesh);
-//	}
-//	{
-//		shared_ptr<Shader> cubeShader = make_shared<Shader>();
-//		shared_ptr<Texture> cubeTexture = make_shared<Texture>();
-//		shared_ptr<Texture> cubeTexture2 = make_shared<Texture>();
-//		cubeShader->Init(L"..\\Resource\\Shader\\forward.fx");
-//		cubeTexture->Init(L"..\\Resource\\Texture\\Leather.jpg");
-//		cubeTexture2->Init(L"..\\Resource\\Texture\\Leather_Normal.jpg");
-//		shared_ptr<Material> cubeMaterial = make_shared<Material>();
-//		cubeMaterial->setShader(cubeShader);
-//		cubeMaterial->setTexture(0, cubeTexture);
-//		cubeMaterial->setTexture(1, cubeTexture2);
-//		cubeRenderer->setMaterial(cubeMaterial);
-//	}
-//	Cube->addComponent(cubeRenderer);
-//	scene->AddGameObject(Cube);
-//
-//
-//#pragma endregion
 
 #pragma region UI_Test
 	for (int32 i = 0; i < 6; i++)
@@ -274,7 +245,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		light->addComponent(make_shared<Light>());
 		light->GetLight()->SetLightDirection(Vec3(0, 0, 1.0f));
 		light->GetLight()->SetLightType(LIGHT_TYPE::DIRECTIONAL_LIGHT);
-		light->GetLight()->SetDiffuse(Vec3(1.0f, 0.0f, 0.0f));
+		light->GetLight()->SetDiffuse(Vec3(1.0f, 1.0f, 1.0f));
 		light->GetLight()->SetAmbient(Vec3(0.1f, 0.1f, 0.1f));
 		light->GetLight()->SetSpecular(Vec3(0.2f, 0.2f, 0.2f));
 
@@ -322,17 +293,19 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 //	}
 //#pragma endregion
 
-#pragma region ParticleSystem
-	{
-		shared_ptr<GameObject> particle = make_shared<GameObject>();
-		particle->addComponent(make_shared<Transform>());
-		particle->addComponent(make_shared<ParticleSystem>());
-		particle->SetCheckFrustum(false);
-		particle->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 100.0f));
-		scene->AddGameObject(particle);
-	}
+//#pragma region ParticleSystem
+//	{
+//		shared_ptr<GameObject> particle = make_shared<GameObject>();
+//		particle->addComponent(make_shared<Transform>());
+//		particle->addComponent(make_shared<ParticleSystem>());
+//		particle->SetCheckFrustum(false);
+//		particle->GetTransform()->SetLocalPosition(Vec3(0.0f, 0.0f, 100.0f));
+//		scene->AddGameObject(particle);
+//	}
+//
+//
+//#pragma endregion
 
 
-#pragma endregion
 	return scene;
 }

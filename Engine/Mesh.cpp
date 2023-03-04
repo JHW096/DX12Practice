@@ -14,16 +14,7 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::Render(shared_ptr<class InstancingBuffer>& buffer)
-{
-	D3D12_VERTEX_BUFFER_VIEW bufferViews[] = { _vertexBufferView, buffer->GetBufferView() };
-	GRAPHICS_CMD_LIST->IASetVertexBuffers(0, 2, bufferViews);	//buffer가 2개 들어가는 차이점.
-	GRAPHICS_CMD_LIST->IASetIndexBuffer(&_indexBufferView);
 
-	GEngine->GetGraphicsDescHeap()->CommitTable();
-
-	GRAPHICS_CMD_LIST->DrawIndexedInstanced(_indexCount, buffer->GetCount(), 0, 0, 0);
-}
 
 void Mesh::Init(vector<Vertex>& vertexBuffer, vector<uint32>& indexBuffer)
 {
@@ -54,6 +45,17 @@ void Mesh::Render(uint32 instanceCount)
 
 	//	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 	GRAPHICS_CMD_LIST->DrawIndexedInstanced(_indexCount, instanceCount, 0, 0, 0 );
+}
+
+void Mesh::Render(shared_ptr<class InstancingBuffer>& buffer)
+{
+	D3D12_VERTEX_BUFFER_VIEW bufferViews[] = { _vertexBufferView, buffer->GetBufferView() };
+	GRAPHICS_CMD_LIST->IASetVertexBuffers(0, 2, bufferViews);	//buffer가 2개 들어가는 차이점.
+	GRAPHICS_CMD_LIST->IASetIndexBuffer(&_indexBufferView);
+
+	GEngine->GetGraphicsDescHeap()->CommitTable();
+
+	GRAPHICS_CMD_LIST->DrawIndexedInstanced(_indexCount, buffer->GetCount(), 0, 0, 0);
 }
 
 void Mesh::CreateVertexBuffer(const vector<Vertex>& buffer)
