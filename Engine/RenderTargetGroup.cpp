@@ -78,6 +78,9 @@ void RenderTargetGroup::OMSetRenderTargets()
 		static_cast<LONG>(_rtVec[0].target->GetHeight())
 	};
 
+	GRAPHICS_CMD_LIST->RSSetViewports(1, &vp);
+	GRAPHICS_CMD_LIST->RSSetScissorRects(1, &rect);
+
 	GRAPHICS_CMD_LIST->OMSetRenderTargets(_rtCount, &_rtvHeapBegin, TRUE/*¥Ÿ¡ﬂ*/, &_dsvHeapBegin);
 }
 

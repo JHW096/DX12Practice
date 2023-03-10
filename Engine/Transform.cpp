@@ -18,9 +18,7 @@ void Transform::LookAt(const Vec3& dir)
 
 	Vec3 right = Vec3::Up.Cross(dir);
 	if (right == Vec3::Zero)
-	{
 		right = Vec3::Forward.Cross(dir);
-	}
 
 	right.Normalize();
 
@@ -30,7 +28,7 @@ void Transform::LookAt(const Vec3& dir)
 	Matrix matrix = XMMatrixIdentity();
 	matrix.Right(right);
 	matrix.Up(up);
-	matrix.Backward(front);		/*Simple Math가 오른쪽 좌표계*/
+	matrix.Backward(front);
 
 	_localRotation = DecomposeRotationMatrix(matrix);
 }

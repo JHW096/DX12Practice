@@ -102,19 +102,13 @@ void Camera::SortShadowObject()
 	for (auto& gameObject : gameObjects)
 	{
 		if (gameObject->GetMeshRenderer() == nullptr)
-		{
 			continue;
-		}
 
 		if (gameObject->IsStatic()) /*정적 물체에 대한 그림자는 따로, but 지금은 그림자를 그릴지 안그릴지 check*/
-		{
 			continue;
-		}
 
 		if (IsCulled(gameObject->GetLayerIndex()))
-		{
 			continue;
-		}
 
 		if (gameObject->GetCheckFrustum())
 		{
@@ -124,8 +118,8 @@ void Camera::SortShadowObject()
 			{
 				continue;
 			}
-			
 		}
+
 		_vecShadow.push_back(gameObject);
 	}
 }
@@ -136,6 +130,7 @@ void Camera::Render_Deferred()
 	S_MatProjection = _matProjection;
 
 	GET_SINGLE(InstancingManager)->Render(_vecDeferred);
+
 }
 
 void Camera::Render_Forward()
