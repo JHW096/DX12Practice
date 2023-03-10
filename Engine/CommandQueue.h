@@ -74,7 +74,7 @@ public:
 
 	void WaitSync();
 
-	void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
+	void RenderBegin();
 	void RenderEnd();
 
 

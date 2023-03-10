@@ -30,8 +30,9 @@ public:
 	void setMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
 	void setMaterial(shared_ptr<Material> material) { _material = material; }
 
-	void Render();
-	void Render(shared_ptr<class InstancingBuffer>& buffer);
+	void Render();												/*none - instancing*/
+	void Render(shared_ptr<class InstancingBuffer>& buffer);	/*instancing*/
+	void RenderShadow();
 
 	uint64 GetInstanceID();
 };

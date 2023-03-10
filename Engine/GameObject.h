@@ -25,6 +25,9 @@ private:
 	//Layer
 	uint8 _layerIndex = 0;
 
+	//Check Drawing Shadw
+	bool _static = true;
+	
 public:
 
 	GameObject();
@@ -55,5 +58,10 @@ public:
 //Layer Fn
 	void SetLayerIndex(uint8 layer) { _layerIndex = layer; }
 	uint8 GetLayerIndex() { return _layerIndex; }
+
+//relate Shadow
+	void SetStatic(bool flag) { _static = flag; }
+	bool IsStatic() { return _static; }
+	
 };
 

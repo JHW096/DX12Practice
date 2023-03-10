@@ -57,7 +57,7 @@ void GraphicsCommandQueue::WaitSync()
 	}
 }
 
-void GraphicsCommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
+void GraphicsCommandQueue::RenderBegin()
 {
 	//queue clear와 같은 개념 
 	_cmdAlloc->Reset();
@@ -85,8 +85,7 @@ void GraphicsCommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_REC
 	_cmdList->ResourceBarrier(1, &barrier);
 
 	//commmand list를 위에서 reset했기 때문에 다시 작업해야한다고 하네요.
-	_cmdList->RSSetViewports(1, vp);
-	_cmdList->RSSetScissorRects(1, rect);
+	
 }
 
 void GraphicsCommandQueue::RenderEnd()

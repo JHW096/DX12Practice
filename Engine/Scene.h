@@ -19,9 +19,15 @@ public:
 	void FinalUpdate();
 
 	void Render();
+
+	void ClearRTV();
+
+	void RenderShadow();	/*Light이전에 호출해야한다.*/
+	void RenderDeferred();
 	void RenderLights();
 	void RenderFinal();
 
+	void RenderForward();
 private:
 
 	void PushLightData();

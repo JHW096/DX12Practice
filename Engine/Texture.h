@@ -6,6 +6,7 @@ class Texture : public Object
 private:
 	//Resource
 	ScratchImage					_image;
+	D3D12_RESOURCE_DESC				_desc;
 	ComPtr<ID3D12Resource>			_tex2D;
 
 	//View
@@ -49,5 +50,9 @@ public:
 	D3D12_CPU_DESCRIPTOR_HANDLE GetSRVHandle() { return _srvHeapBegin; }
 	D3D12_CPU_DESCRIPTOR_HANDLE GetUAVHandle() { return _uavHeapBegin; }
 
+public:
+
+	float GetWidth() { return static_cast<float>(_desc.Width); }
+	float GetHeight() { return static_cast<float>(_desc.Height); }
 };
 

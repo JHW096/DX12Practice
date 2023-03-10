@@ -19,6 +19,9 @@ private:
 	float _fov = XM_PI / 4.0f; //field of view
 	float _scale = 1.0f;
 
+	float _width = 0.0f;
+	float _height = 0.0f;
+
 	Matrix _matView{ };
 	Matrix _matProjection{ };
 
@@ -32,6 +35,7 @@ private:
 	vector<shared_ptr<GameObject>>		_vecDeferred;
 	vector<shared_ptr<GameObject>>		_vecForward;
 	vector<shared_ptr<GameObject>>		_vecParticle;
+	vector<shared_ptr<GameObject>>		_vecShadow;
 
 public:
 	//TEMP
@@ -52,8 +56,11 @@ public:
 
 //part of Shader 
 	void SortGameObject();
+	void SortShadowObject(); 
+
 	void Render_Deferred();
 	void Render_Forward();
+	void Render_Shadow();
 
 //Layer Fu
 public:
@@ -72,5 +79,15 @@ public:
 	void SetCullingMaskAll() { SetCullingMask(UINT32_MAX); }
 	void SetCullingMask(uint32 mask) { _cullingMask = mask; }
 	bool IsCulled(uint8 layer) { return (_cullingMask & (1 << layer)) != 0; }
+
+	void SetNear(float value) { _near = value; }
+	void SetFar(float value) { _far = value; }
+	void SetFOV(float value) { _fov = value; }
+	void SetScale(float value) { _scale = value; }
+	void SetWidth(float value) { _width = value; }
+	void SetHeight(float value) { _height = value; }
+
+	Matrix& GetViewMatrix() { return _matView; }
+	Matrix& GetProjectionMatrix() { return _matProjection; }
 };
 

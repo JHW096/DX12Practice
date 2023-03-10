@@ -11,6 +11,7 @@ enum
 	MATERIAL_TEXTURE_COUNT = 4,
 	MATERIAL_VECTOR2_COUNT = 4,
 	MATERIAL_VECTOR4_COUNT = 4,
+	MATERIAL_MATRIX_COUNT = 4,
 };
 
 struct MaterialParams
@@ -20,12 +21,14 @@ struct MaterialParams
 	array<int32, MATERIAL_TEXTURE_COUNT> texOnParams;
 	array<Vec2, MATERIAL_VECTOR2_COUNT> vec2Params;
 	array<Vec4, MATERIAL_VECTOR4_COUNT> vec4Params;
+	array<Matrix, MATERIAL_MATRIX_COUNT> matrixParams;
 
 	void setInt(uint8 index, int32 value) { intParams[index] = value; }
 	void setFloat(uint8 index, float value) { floatParams[index] = value; }
 	void setTexOn(uint8 index, int32 value) { texOnParams[index] = value; }
 	void setVec2(uint8 index, Vec2 value) { vec2Params[index] = value; }
 	void setVec4(uint8 index, Vec4 value) { vec4Params[index] = value; }
+	void setMatrix(uint8 index, Matrix& value) { matrixParams[index] = value; }
 };
 
 class Material : public Object
@@ -56,6 +59,7 @@ public:
 	
 	void setVec2(uint8 index, Vec2 value) { _params.setVec2(index, value); }
 	void setVec4(uint8 index, Vec4 value) { _params.setVec4(index, value); }
+	void SetMatrix(uint8 index, Matrix& value) { _params.setMatrix(index, value); }
 
 	void PushGraphicsData();
 	void PushComputeData();

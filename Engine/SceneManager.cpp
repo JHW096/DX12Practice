@@ -170,34 +170,50 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 #pragma endregion
 
 #pragma region Sphere / Object
-	for(int32 i = 0; i < 50; i++)
+	
 	{
-		shared_ptr<GameObject> sphere = make_shared<GameObject>();
-		sphere->addComponent(make_shared<Transform>());
-		sphere->GetTransform()->SetLocalScale(Vec3(25.0f, 25.0f, 25.0f));
-		sphere->GetTransform()->SetLocalPosition(Vec3(-300.0f + i * 10.0f, 0.0f, 500.0f));
-		shared_ptr<MeshRenderer> sphereRenderer = make_shared<MeshRenderer>();
+		shared_ptr<GameObject> obj = make_shared<GameObject>();
+		obj->addComponent(make_shared<Transform>());
+		obj->GetTransform()->SetLocalScale(Vec3(100.0f, 100.0f, 100.0f));
+		obj->GetTransform()->SetLocalPosition(Vec3(0, 0.0f, 500.0f));
+		obj->SetStatic(false);
+		
+		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{
 			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
-			sphereRenderer->setMesh(sphereMesh);
+			meshRenderer->setMesh(sphereMesh);
 		}
 		{
 			shared_ptr<Material> material = GET_SINGLE(Resources)->Get<Material>(L"GameObject");
-			//Instancing method
-			//material->setInt(0, 1);
-			//sphereRenderer->setMaterial(material);
-			
-			//Prev Method
-			material->setInt(0, 0);
-			sphereRenderer->setMaterial(material->Clone());
+			meshRenderer->setMaterial(material->Clone());
 		}
-		sphere->addComponent(sphereRenderer);
-		scene->AddGameObject(sphere);
+		obj->addComponent(meshRenderer);
+		scene->AddGameObject(obj);
 	}
 	
 #pragma endregion
 
-
+#pragma region Plane 
+	{
+		shared_ptr<GameObject> obj = make_shared<GameObject>();
+		obj->addComponent(make_shared<Transform>());
+		obj->GetTransform()->SetLocalScale(Vec3(1000.0f, 1.0f, 1000.0f));
+		obj->GetTransform()->SetLocalPosition(Vec3(0.0f, -100.0f, 500.0f));
+		obj->SetStatic(true);
+		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
+		{
+			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadCubeMesh();
+			meshRenderer->setMesh(mesh);
+		}
+		{
+			shared_ptr<Material> material = GET_SINGLE(Resources)->Get<Material>(L"GameObject")->Clone();
+			material->setInt(0, 0);
+			meshRenderer->setMaterial(material);
+		}
+		obj->addComponent(meshRenderer);
+		scene->AddGameObject(obj);
+	}
+#pragma endregion
 
 #pragma region UI_Test
 	for (int32 i = 0; i < 6; i++)
@@ -226,7 +242,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 			}
 			else
 			{
-				texture = GET_SINGLE(Resources)->Get<Texture>(L"UAVTexture");
+				texture = GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::SHADOW)->GetRTTexture(0);
 			}
 			shared_ptr<Material> material = make_shared<Material>();
 			material->setShader(shader);
@@ -242,12 +258,13 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	{
 		shared_ptr<GameObject> light = make_shared<GameObject>();
 		light->addComponent(make_shared<Transform>());
+		light->GetTransform()->SetLocalPosition(Vec3(0, 1000, 5000));
 		light->addComponent(make_shared<Light>());
-		light->GetLight()->SetLightDirection(Vec3(0, 0, 1.0f));
+		light->GetLight()->SetLightDirection(Vec3(0, -1, 0.0f));
 		light->GetLight()->SetLightType(LIGHT_TYPE::DIRECTIONAL_LIGHT);
 		light->GetLight()->SetDiffuse(Vec3(1.0f, 1.0f, 1.0f));
 		light->GetLight()->SetAmbient(Vec3(0.1f, 0.1f, 0.1f));
-		light->GetLight()->SetSpecular(Vec3(0.2f, 0.2f, 0.2f));
+		light->GetLight()->SetSpecular(Vec3(0.1f, 0.1f, 0.1f));
 
 		scene->AddGameObject(light);
 	}
