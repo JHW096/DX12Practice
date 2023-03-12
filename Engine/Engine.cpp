@@ -165,11 +165,11 @@ void Engine::CreateRenderTargetGroups()
 			4096,
 			CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
 			D3D12_HEAP_FLAG_NONE,
-			D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET,
-			Vec4(1.0f, 0.0f, 0.0f, 0.0f)
+			D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
+			
 		);
 
-		rtVec[0].clearColor[0] = 1.0f;
+		
 
 		shared_ptr<Texture> shadowDepthTexture = GET_SINGLE(Resources)->CreateTexture(
 			L"ShadowDepthStencil",

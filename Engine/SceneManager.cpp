@@ -258,11 +258,11 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	{
 		shared_ptr<GameObject> light = make_shared<GameObject>();
 		light->addComponent(make_shared<Transform>());
-		light->GetTransform()->SetLocalPosition(Vec3(0, 1000, 5000));
+		light->GetTransform()->SetLocalPosition(Vec3(0, 1000, 500));
 		light->addComponent(make_shared<Light>());
-		light->GetLight()->SetLightDirection(Vec3(0, -1, 0.0f));
+		light->GetLight()->SetLightDirection(Vec3(0, -1, 0.f));
 		light->GetLight()->SetLightType(LIGHT_TYPE::DIRECTIONAL_LIGHT);
-		light->GetLight()->SetDiffuse(Vec3(1.0f, 1.0f, 1.0f));
+		light->GetLight()->SetDiffuse(Vec3(1.f, 1.f, 1.f));
 		light->GetLight()->SetAmbient(Vec3(0.1f, 0.1f, 0.1f));
 		light->GetLight()->SetSpecular(Vec3(0.1f, 0.1f, 0.1f));
 

@@ -119,7 +119,7 @@ void Transform::PushData()
 	transformParams.matProjection = Camera::S_MatProjection;
 	transformParams.matWV = _matWorld * Camera::S_MatView;
 	transformParams.matWVP = _matWorld * Camera::S_MatView * Camera::S_MatProjection;
-
+	transformParams.matViewInv = Camera::S_MatView.Invert();
 
 	CONST_BUFFER(CONSTANT_BUFFER_TYPE::TRANSFORM)->PushGraphicsData(&transformParams, sizeof(transformParams));
 }
